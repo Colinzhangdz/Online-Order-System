@@ -1,6 +1,7 @@
 package com.group7.asd.dao;
 
 import com.group7.asd.model.Customer;
+import com.group7.asd.model.Product;
 import com.group7.asd.model.Staff;
 
 import java.sql.*;
@@ -167,6 +168,68 @@ public class Database {
 	public void deleteCustomer(String id) {
 		try (Connection conn = getConnection()) {
 			String sql = "delete from customer where id=?";
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, id);
+			st.executeUpdate();
+			st.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ArrayList<Product> getProducts()  {
+		ArrayList<Product> products = new ArrayList<Product>();
+		try (Connection conn = getConnection()) {
+			String sql = "select id,name, price from product ";
+			PreparedStatement st = conn.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				Product product = new Product();
+				int i = 1;
+				product.setId(rs.getString(i++));
+				product.setName(rs.getString(i++));
+				product.setPrice(rs.getString(i++));
+				products.add(product);
+			}
+			rs.close();
+			st.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return products;
+	}
+	public void addProduct(Product product) {
+		try (Connection conn = getConnection()) {
+			String sql = "insert into product (name, price) values (?,?)";
+			PreparedStatement st = conn.prepareStatement(sql);
+			int i = 1;
+			st.setString(i++, product.getName());
+			st.setString(i++, product.getPrice());
+			st.executeUpdate();
+			st.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+	}
+}
+
+	public void editProduct(Product product) {
+		try (Connection conn = getConnection()) {
+			String sql = "update product set name=?, price=?";
+			PreparedStatement st = conn.prepareStatement(sql);
+			int i = 1;
+			st.setString(i++, product.getName());
+			st.setString(i++, product.getPrice());
+			st.executeUpdate();
+			st.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteProduct(String id) {
+		try (Connection conn = getConnection()) {
+			String sql = "delete from product where id=?";
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, id);
 			st.executeUpdate();
