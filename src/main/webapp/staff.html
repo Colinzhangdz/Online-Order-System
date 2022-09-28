@@ -69,8 +69,8 @@
             </el-form-item>
             <el-form-item label="gender" prop="gender">
                 <el-select v-model="staffForm.gender" placeholder="--" style="width: 50%;">
-                    <el-option label="male" value="male"></el-option>
-                    <el-option label="female" value="female"></el-option>
+                    <el-option label="Male" value="male"></el-option>
+                    <el-option label="Female" value="female"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="age" prop="age">
@@ -87,8 +87,8 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">Console</el-button>
-            <el-button type="primary" @click="save()">Confirm</el-button>
+            <el-button @click="dialogFormVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="save()">OK</el-button>
         </div>
     </el-dialog>
 </div>
@@ -189,8 +189,8 @@
             },
             deleteStaff(){
                 this.$confirm('Are you sure to delete?', 'Tips', {
-                    confirmButtonText: 'confirm',
-                    cancelButtonText: 'console',
+                    confirmButtonText: 'OK',
+                    cancelButtonText: 'Cancel',
                     type: 'warning'
                 }).then(() => {
                     this.actionType = 'delete';
