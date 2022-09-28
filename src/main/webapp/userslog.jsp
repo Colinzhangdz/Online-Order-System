@@ -1,7 +1,7 @@
 <%@ page import="java.util.Date" %>
-<%@ page import="com.group7.asd.User" %>
-<%@ page import="com.group7.asd.UserLogDBManager" %>
-<%@ page import="com.group7.asd.UserLog" %>
+<%@ page import="com.group7.asd.model.User" %>
+<%@ page import="com.group7.asd.dao.UserLogDBManager" %>
+<%@ page import="com.group7.asd.model.UserLog" %>
 <%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: pan11

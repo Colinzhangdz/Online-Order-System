@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group7.asd;
+package com.group7.asd.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

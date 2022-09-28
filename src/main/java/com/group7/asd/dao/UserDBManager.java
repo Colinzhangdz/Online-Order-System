@@ -1,4 +1,6 @@
-package com.group7.asd;
+package com.group7.asd.dao;
+
+import com.group7.asd.model.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

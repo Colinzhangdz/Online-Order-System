@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group7.asd;
+package com.group7.asd.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "ProfileRedirectServlet", urlPatterns = {"/ProfileRedirectServlet"})
-public class ProfileRedirectServlet extends HttpServlet {
+
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Validator validator = new Validator();
-        validator.clear(session);
-        response.sendRedirect("profile.jsp");
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+            HttpSession session = request.getSession();
+            session.invalidate();
+        } catch (Exception ex) {
+        } finally {
+            response.sendRedirect("ConnServlet");
+        }
     }
+
 
 
 }

@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group7.asd;
+package com.group7.asd.controller;
+
+import com.group7.asd.dao.DBConnector;
+import com.group7.asd.dao.UserLogDBManager;
+import com.group7.asd.dao.UserDBManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,4 +1,4 @@
-package com.group7.asd;
+package com.group7.asd.controller;
 
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;

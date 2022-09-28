@@ -1,4 +1,4 @@
-<%@ page import="com.group7.asd.User" %>
+<%@ page import="com.group7.asd.model.User" %>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

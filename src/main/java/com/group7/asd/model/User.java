@@ -1,4 +1,4 @@
-package com.group7.asd;
+package com.group7.asd.model;
 
 import java.io.Serializable;
 

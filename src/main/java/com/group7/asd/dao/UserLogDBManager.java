@@ -1,5 +1,7 @@
 
-package com.group7.asd;
+package com.group7.asd.dao;
+
+import com.group7.asd.model.UserLog;
 
 import java.sql.*;
 import java.util.ArrayList;

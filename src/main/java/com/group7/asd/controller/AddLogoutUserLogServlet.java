@@ -1,6 +1,9 @@
 
-package com.group7.asd;
+package com.group7.asd.controller;
 
+
+import com.group7.asd.model.User;
+import com.group7.asd.dao.UserLogDBManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

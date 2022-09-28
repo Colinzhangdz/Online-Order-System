@@ -1,5 +1,7 @@
-package com.group7.asd;
+package com.group7.asd.dao;
 
+
+import com.group7.asd.dao.DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,5 +1,5 @@
 
-package com.group7.asd;
+package com.group7.asd.dao;
 
 import java.sql.Connection;
 

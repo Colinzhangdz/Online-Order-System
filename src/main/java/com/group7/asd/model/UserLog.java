@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group7.asd;
+package com.group7.asd.model;
 
 import java.io.Serializable;
 import java.sql.Date;
