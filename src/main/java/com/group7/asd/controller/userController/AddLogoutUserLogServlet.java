@@ -1,6 +1,5 @@
 
-package com.group7.asd.controller;
-
+package com.group7.asd.controller.userController;
 
 
 import com.group7.asd.model.User;
@@ -17,9 +16,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-@WebServlet(name = "AddLoginLogServlet", urlPatterns = {"/AddLoginLogServlet"})
-public class AddLoginLogServlet extends HttpServlet {
+@WebServlet(name = "AddLogoutUserLogServlet", urlPatterns = {"/AddLogoutUserLogServlet"})
+public class AddLogoutUserLogServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,15 +29,15 @@ public class AddLoginLogServlet extends HttpServlet {
             UserLogDBManager manager = (UserLogDBManager) session.getAttribute("userLogDBManager");
             validator.clear(session);
 
-            manager.createUserLog(user.getUserId());
-            response.sendRedirect("ProfileRedirectServlet");
-
+            manager.addUserLogoutLog(user.getUserId());
+            response.sendRedirect("LogoutServlet");
         } catch (SQLException ex) {
             Logger.getLogger(AddLoginLogServlet.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("LoginRedirectServlet");
+            response.sendRedirect("LogoutServlet");
         }
 
     }
+
 
 
 }

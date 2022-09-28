@@ -1,4 +1,4 @@
-package com.group7.asd.controller;
+package com.group7.asd.controller.userController;
 
 import com.group7.asd.model.User;
 import com.group7.asd.dao.UserDBManager;
