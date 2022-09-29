@@ -1,7 +1,6 @@
 package com.group7.asd.model;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+
 
 public class Product {
     private String id;
