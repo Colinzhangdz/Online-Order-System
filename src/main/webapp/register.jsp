@@ -1,9 +1,3 @@
-<%-- 
-    Document   : register
-    Created on : May 15, 2022, 3:44:46 AM
-    Author     : Saqib
---%>
-
 
 <!DOCTYPE html>
 <html>
@@ -28,17 +22,14 @@
         %>
 
 
-        <div class="iotbay-heading">
-            <h4>IOT BAY</h4>
+        <div>
+            <h4>Online Order System</h4>
         </div>
         <div class="container ">
             <header class="header">
 
                 <h1>Registration</h1>
-
-
             </header>
-
         </div>
 
 

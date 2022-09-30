@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : May 15, 2022, 4:40:08 AM
-    Author     : Saqib
---%>
-
 
 
 <!DOCTYPE html>
