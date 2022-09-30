@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Evaluation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+    <link href="css/manage_evaluation.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios@0.25.0/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header>
+            <div class="page-wrapper">
+                <div class="nav-wrapper">
+                    <div class="grad-bar"></div>
+                    <nav class="navbar">
+                        <img src="img/food-design.png" alt="Company Logo">
+                        <ul class="nav no-search">
+                            <li class="nav-item"><a href="#">Home</a></li>
+                            <li class="nav-item"><a href="#">About</a></li>
+                            <li class="nav-item"><a href="#">Work</a></li>
+                            <li class="nav-item"><a href="#">Careers</a></li>
+                            <li class="nav-item"><a href="#">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </el-header>
+        <el-main style="background-color: #f1f1f1">
+            <el-table
+                    :header-cell-style="{ background: '#f1f1f1' }"
+                    :row-style="{ background: '#f1f1f1' }"
+                    :data="tableData"
+                    style="width: 100%">
+                <el-table-column
+                        prop="id"
+                        label="ID"
+                        width="180"
+                        show-overflow-tooltip>
+                </el-table-column>
+                <el-table-column label="Platform Rating" width="300">
+                    <template slot-scope="scope">
+                        <el-rate
+                                v-model="scope.row.platformRating"
+                                disabled
+                                show-score
+                                :max=10
+                                text-color="#ff9900"
+                                score-template="{value}">
+                        </el-rate>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="feedback"
+                        label="Feedback"
+                        width="250"
+                        show-overflow-tooltip>
+                </el-table-column>
+                <el-table-column
+                        prop="deliveryPersonFeedback"
+                        label="Delivery Person Feedback"
+                        width="180">
+                </el-table-column>
+                <el-table-column label="Attraction" width="180">
+                    <span slot-scope="scope">
+                    <span v-for="item in scope.row.attraction">{{ item }}<br></span>
+                </span>
+                </el-table-column>
+                <el-table-column label="Food Overall Rating" width="180">
+                    <template slot-scope="scope">
+                        <el-rate
+                                v-model="scope.row.foodOverallRating"
+                                disabled
+                                show-score
+                                text-color="#ff9900"
+                                score-template="{value}">
+                        </el-rate>
+                    </template>
+                </el-table-column>
+                <el-table-column label="Food Packing Rating" width="180">
+                    <template slot-scope="scope">
+                        <el-rate
+                                v-model="scope.row.foodPackingRating"
+                                disabled
+                                show-score
+                                text-color="#ff9900"
+                                score-template="{value}">
+                        </el-rate>
+                    </template>
+                </el-table-column>
+                <el-table-column label="Food Taste Rating">
+                    <template slot-scope="scope">
+                        <el-rate
+                                v-model="scope.row.foodTasteRating"
+                                disabled
+                                show-score
+                                text-color="#ff9900"
+                                score-template="{value}">
+                        </el-rate>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-main>
+    </el-container>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            tableData: []
+        },
+        mounted: function () {
+            this.getEvaluations();
+        },
+        methods: {
+            getEvaluations() {
+                axios.get('/asd_war_exploded/evaluation')
+                    .then((response) => {
+                        this.tableData = response.data
+                        console.log(response)
+                    })
+            },
+        }
+    })
+</script>
+</body>
+</html>
