@@ -1,12 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>ShoppingCart</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <!-- <link rel="stylesheet" href="./css/cart.css"> -->
 </head>
 <body>
-<input type="button" @click.prevent="addToCart" value="" class="add_btn" />
+<div id="main">
+    <div class="container">
+        <div id="cart">
+            <h1>ShoppingCart</h1>
+            <form action="#" method="post">
+                <table class="form">
+                    <thead>
+                    <tr>
+                        <th width="8%">choose</th>
+                        <th width="50%">product</th>
+                        <th width="13%">single price</th>
+                        <th width="15%">number</th>
+                        <th width="14%">total price（）</th>
+                    </tr>
+                    </thead>
+                    <tbody id="cart-goods-list">
+                    <tr v-for="cart in productList">
+                        <td>
+                            <input type="checkbox" name="good-id" :value="1" v-model="cart.select">
+                        </td>
+                        <td class="goods">
+                            <div class="goods-image">
+                                <img v-bind:src="cart.pro_img">
+                            </div>
+                            <div class="goods-information">
+                                <h3>{{cart.pro_name}}</h3>
+                                <ul>
+                                    <li>{{cart.pro_purity}}</li>
+                                    <li>{{cart.pro_service}}</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="price">￥<em class="price-em">{{cart.pro_price.toFixed(2)}}</em></span>
+                        </td>
+                        <td>
+                            <div class="combo">
+                                <input type="button" name="minus" value="-" class="combo-minus" @click="cart.pro_num<2?cart.pro_num=1:cart.pro_num--">
+                                <input type="text" name="count" v-model.number="cart.pro_num" class="combo-value">
+                                <input type="button" name="plus" value="+" class="combo-plus" v-on:click="cart.pro_num++">
+                            </div>
+                        </td>
+                        <td>
+                            <strong class="amount">￥<em class="amount-em">{{(cart.pro_price*cart.pro_num).toFixed(2)}}</em></strong>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot v-show="productList.length!=0">
+                    <tr>
+                        <td colspan="2">
+                            <label>
+                                <input type="checkbox" name="all" v-model="isSelectAll">
+                                <span @click="">all</span>
+                            </label>
+                            <a href="#" id="cart-delete" @click="del()">delete</a>
+                        </td>
+                        <td colspan="3">
+                            <span>合计：</span>
+                            <strong id="total-amount">￥<em id="total-amount-em">{{getTotal}}</em></strong>
+                            <input type="submit" @click="submit"value="payment" id="settlement">
+                        </td>
+                    </tr>
+                    </tfoot>
 
-
+                </table>
+            </form>
+            <div v-show="productList.length===0">
+                Shopping cart is empty
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    new Vue({
+        el:"#cart",
+        data:{
+            productList:[
+                {
+                    'pro_name': 'Dior ',//产品名称
+                    'pro_purity': '50ml',//规格
+                    'pro_service': "No seven-day no-questions-asked returns",//售后
+                    'pro_num': 1,//数量
+                    'pro_img': 'img/1.jpg',//图片链接
+                    'pro_price': 498,//单价,
+                    'select': true ,//选中状态
+                },
+                {
+                    'pro_name': 'dior',//产品名称
+                    'pro_purity': '350g',//规格
+                    'pro_service': "No seven-day no-questions-asked returns",//售后
+                    'pro_num': 1,//数量
+                    'pro_img': 'img/2.jpg',//图片链接
+                    'pro_price': 268,//单价
+                    'select': true //选中状态
+                },
+                {
+                    'pro_name': 'LANCÔME ',//产品名称
+                    'pro_purity': '50ml',//规格
+                    'pro_service': "No seven-day no-questions-asked returns",//售后
+                    'pro_num': 1,//数量
+                    'pro_img': 'img/3.jpg',//图片链接
+                    'pro_price': 598,//单价
+                    'select': true //选中状态
+                }
+            ]
+        },
+        computed:{
+            getTotal:function(){
+                var newArr=this.productList.filter(function(val){
+                    return val.select===true;
+                })
+                var price=0;
+                for(var i=0;i<newArr.length;i++){
+                    price+=newArr[i].pro_num*newArr[i].pro_price
+                }
+                return price.toFixed(2)
+            },
+            isSelectAll:{
+                get:function(){
+                    return this.productList.every(function(val){
+                        return val.select===true;
+                    })
+                },
+                set:function(newValue){
+                    for(var i=0;i<this.productList.length;i++){
+                        this.productList[i].select=newValue;
+                    }
+                }
+            }
+        },
+        methods:{
+            submit(){
+                window.alert("Confirm to delete?？")
+                console.log("helllo")
+            },
+
+            del:function(){
+                if(confirm("Confirm to delete?")){
+                    var newArr=[];
+                    for(var i=0;i<this.productList.length;i++){
+                        if(this.productList[i].select===false){
+                            newArr.push(this.productList[i])
+                        }
+                    }
+                    this.productList=newArr;
+                }
+            }
+        }
+
+    })
+</script>
 </html>
