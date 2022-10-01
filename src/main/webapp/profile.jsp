@@ -1,11 +1,5 @@
-<%-- 
-    Document   : profile
-    Created on : May 15, 2022, 3:45:02 AM
-    Author     : Saqib
---%>
+<%@ page import="com.group7.asd.model.User" %>
 
-<%@page import="uts.isd.model.User"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -26,13 +20,6 @@
             String password = user.getPassword();
             String phone = user.getPhone();
         %>
-
-
-        <%@ include file="includes/header.jsp" %>
-
-
-
-
 
         <div class="container" style="margin-top:20px; margin-bottom: 120px;">
 
@@ -76,7 +63,7 @@
                 <div class="row">
 
 
-                    <a href="ProfileDeleteServlet?userid=<%=user.getUserId()%>"  > <input type="button" id="loginBtn" value="Delete Profile" ></a>
+                    <a href="ProfileDeleteServlet?userid=<%=user.getUserId()%>" > <input type="button" id="loginBtn" value="Delete Profile" ></a>
                     <input type="submit" value="Update">
                 </div>
             </form>
@@ -84,7 +71,7 @@
 
 
 
-        <%@ include file="includes/footer.jsp" %>
+
 
 
     </body>

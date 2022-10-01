@@ -12,6 +12,6 @@ public abstract class DB {
 
     protected String dbuser = "asd";//db root user
     protected String dbpass = "bzsg.+CiGd2f"; //db root password
-    protected String driver = "org.apache.derby.jdbc.ClientDriver"; //jdbc client driver - built in with NetBeans   
+    protected String driver = "com.mysql.jdbc.Driver"; //jdbc client driver - built in with NetBeans
     protected Connection conn; //connection null-instance to be initialized in sub-classes
 }
