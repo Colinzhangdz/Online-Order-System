@@ -18,7 +18,7 @@ import java.sql.Statement;
  */
 public class UserDBManager {
 
-    private Statement st;
+    private final Statement st;
 
     public UserDBManager(Connection conn) throws SQLException {
 
@@ -57,7 +57,7 @@ public class UserDBManager {
 
 //create user in database
     public void addUser(User user) throws SQLException {
-        st.executeUpdate("INSERT INTO USERS(EMAIL, PASSWORD, FULLNAME, PHONE,USERTYPE) VALUES('" + user.getEmail() + "','" + user.getPassword() + "','" + user.getFullName() + "','" + user.getPhone() + "','" + user.getUserType() + "')");
+        st.executeUpdate("INSERT INTO USERS(EMAIL, PASSWORD, FULLNAME, PHONE, USERTYPE) VALUES('" + user.getEmail() + "','" + user.getPassword() + "','" + user.getFullName() + "','" + user.getPhone() + "','" + user.getUserType() + "')");
     }
 
 //update user in database

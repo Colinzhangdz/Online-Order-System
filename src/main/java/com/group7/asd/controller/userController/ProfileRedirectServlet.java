@@ -5,6 +5,8 @@
  */
 package com.group7.asd.controller.userController;
 
+import com.group7.asd.dao.DBConnector;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +25,18 @@ import java.io.IOException;
  */
 @WebServlet(name = "ProfileRedirectServlet", urlPatterns = {"/ProfileRedirectServlet"})
 public class ProfileRedirectServlet extends HttpServlet {
+    private DBConnector db;
 
+    private Connection conn;
+
+    @Override //Create and instance of DBConnector for the deployment session
+    public void init() {
+        try {
+            db = new DBConnector();  //Create a database connection when the application starts
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,7 +47,7 @@ public class ProfileRedirectServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         Validator validator = new Validator();
         validator.clear(session);
@@ -49,7 +66,11 @@ public class ProfileRedirectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -63,7 +84,11 @@ public class ProfileRedirectServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

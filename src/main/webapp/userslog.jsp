@@ -26,7 +26,8 @@
             UserLogDBManager manager = (UserLogDBManager) session.getAttribute("userLogDBManager");
             User user = (User) session.getAttribute("user");
 
-            ArrayList<UserLog> usersLog = null;
+            ArrayList<UserLog> usersLog;
+            usersLog = null;
             if (searchDate == null) {
                 usersLog = manager.getUserLogByUserId(user.getUserId());
             } else {

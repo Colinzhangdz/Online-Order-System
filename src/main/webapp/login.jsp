@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/mystyle.css">
     <title>Login Page</title>
-7
+
 </head>
 
 <body>

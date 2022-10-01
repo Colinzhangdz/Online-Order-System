@@ -1,6 +1,7 @@
 
 package com.group7.asd.controller.userController;
 
+import com.group7.asd.dao.DBConnector;
 import com.group7.asd.dao.UserDBManager;
 import com.group7.asd.model.User;
 
@@ -11,12 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
+
+    private DBConnector db;
+
+    private Connection conn;
+
+    @Override //Create and instance of DBConnector for the deployment session
+    public void init() {
+        try {
+            db = new DBConnector();  //Create a database connection when the application starts
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         Validator validator = new Validator();
         String email = request.getParameter("email");
@@ -36,8 +52,9 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
         String usertype = request.getParameter("usertype");
-      
-        UserDBManager manager = (UserDBManager) session.getAttribute("userDBManager");
+
+        conn = db.openConnection();
+        UserDBManager manager = new UserDBManager(conn);  //Create DB managers
         validator.clear(session);
 
         if (!validator.validateEmail(email)) {
@@ -85,7 +102,11 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -99,7 +120,11 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
