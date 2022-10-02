@@ -65,6 +65,8 @@
 
                     <a href="ProfileDeleteServlet?userid=<%=user.getUserId()%>" > <input type="button" id="loginBtn" value="Delete Profile" ></a>
                     <input type="submit" value="Update">
+                    <a href="login.jsp" > <input type="button" value="Logout" ></a>
+                    <a href="ShoppingCart1.html" > <input type="button" value="Menu" ></a>
                 </div>
             </form>
         </div>

@@ -23,7 +23,7 @@
 %>
 
 
-<div class="iotbay-heading">
+<div>
     <h4>Online order</h4>
 </div>
 <div class="container ">
