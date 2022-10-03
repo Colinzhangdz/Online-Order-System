@@ -12,14 +12,14 @@ public class RegisterTest {
     @Test
     public void testUser1() throws Exception{
         User user = new User();
-        user.setUserId(6666);
+        //user.setUserId(6666);
         user.setEmail("666@uts.com");
         user.setPassword("1234");
         user.setFullName("Zhoayu Pan");
         user.setPhone("1234567890");
         user.setUserType("staff");
-        user.setIsActive(true);
-
+        //user.setIsActive(true);
+//woaimingge
         UserDBManager userDBManager = new UserDBManager();
         userDBManager.addUser(user);
 

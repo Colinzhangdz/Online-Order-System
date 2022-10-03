@@ -51,7 +51,8 @@ public class ProfileRedirectServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Validator validator = new Validator();
         validator.clear(session);
-        response.sendRedirect("profile.jsp");
+        //response.sendRedirect("profile.jsp");
+        response.sendRedirect("main.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

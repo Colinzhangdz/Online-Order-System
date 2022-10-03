@@ -19,6 +19,8 @@
             String fullname = user.getFullName();
             String password = user.getPassword();
             String phone = user.getPhone();
+
+            String type = user.getUserType();
         %>
 
         <div class="container" style="margin-top:20px; margin-bottom: 120px;">
@@ -66,7 +68,13 @@
                     <a href="ProfileDeleteServlet?userid=<%=user.getUserId()%>" > <input type="button" id="loginBtn" value="Delete Profile" ></a>
                     <input type="submit" value="Update">
                     <a href="login.jsp" > <input type="button" value="Logout" ></a>
-                    <a href="ShoppingCart1.html" > <input type="button" value="Menu" ></a>
+                    <% if (type.equals("STAFF")) { %>
+                    <jsp:include page="main1.jsp" flush="true" />
+                    <% } else { %>
+                    <jsp:include page="main2.jsp" flush="true" />
+                    <% } %>
+
+
                 </div>
             </form>
         </div>
