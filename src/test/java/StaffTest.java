@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
+// Test add staff
 public class StaffTest {
     @Test
     public void testAddStaff() {
