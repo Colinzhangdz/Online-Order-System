@@ -23,7 +23,7 @@ public class ProductServlet extends HttpServlet {
         String actionType = request.getParameter("actionType");
         switch (actionType) {
             case "add":
-                String productFormAdd = request.getParameter("ProductForm");
+                String productFormAdd = request.getParameter("productForm");
                 Product productAdd = JSON.parseObject(productFormAdd, Product.class);
                 Database.instance().addProduct(productAdd);
                 result.put("info", "success");

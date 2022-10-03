@@ -15,6 +15,20 @@
         <el-button type="primary" @click="editProduct">Edit</el-button>
         <el-button type="danger" @click="deleteProduct">Delete</el-button>
     </div>
+    <div style="float: left;margin-bottom: 10px;">
+
+        <button>
+            <a href="profile.jsp">Profile</a></button>
+        <button>
+            <a href="Menu.html">menu</a></button>
+        <button>
+            <a href="cart.html">
+                cart
+            </a>
+        </button>
+
+    </div>
+
 <template>
     <el-table
             :data="tableData"
@@ -52,6 +66,7 @@
 
     </el-table>
 </template>
+
 <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" width="40%" :close-on-click-modal="false">
     <el-form :model="productForm" :rules="rules" ref="productForm" label-width="100px" class="demo-productForm">
         <el-form-item label="brand_name" prop="brand_name">

@@ -183,7 +183,7 @@ public class Database {
     public ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<Product>();
         try (Connection conn = getConnection()) {
-            String sql = "select id,brand_name,company_name,ordered,description,status from td_brand ";
+            String sql = "select id,brand_name,company_name,ordered,description,status from tb_brand ";
             PreparedStatement st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -226,7 +226,7 @@ public class Database {
 
     public void editProduct(Product product) {
         try (Connection conn = getConnection()) {
-            String sql = "update tb_brand set brand_name=?, company_name=?,ordered=?,description=?,status=?";
+            String sql = "update tb_brand set brand_name=?, company_name=?,ordered=?,description=?,status=? where id=?";
             PreparedStatement st = conn.prepareStatement(sql);
             int i = 1;
             st.setString(i++, product.getBrand_name());
@@ -234,6 +234,8 @@ public class Database {
             st.setString(i++, String.valueOf(product.getOrdered()));
             st.setString(i++, product.getDescription());
             st.setString(i++, String.valueOf(product.getStatus()));
+            st.setString(i++, String.valueOf(product.getId()));
+
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
