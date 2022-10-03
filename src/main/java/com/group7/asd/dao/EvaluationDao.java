@@ -26,6 +26,37 @@ public class EvaluationDao {
         }
     }
 
+    public Evaluation getEvaluationById(String id){
+        Evaluation evaluation = new Evaluation();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String username = "asd";
+            String password = "bzsg.+CiGd2f";
+            String connectionUrl = "jdbc:mysql://asd-database.mysql.database.azure.com/demo";
+            Connection conn = DriverManager.getConnection(connectionUrl, username, password);
+
+            String sql = "SELECT * FROM evaluation WHERE id = '"+id+"';";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                evaluation.setId(rs.getString("id"));
+                evaluation.setPlatformRating(rs.getInt("platform_rating"));
+                evaluation.setFeedback(rs.getString("feedback"));
+                evaluation.setDeliveryPersonFeedback(rs.getString("delivery_person_feedback"));
+                evaluation.setAttraction(new ArrayList<String>(Arrays.asList(rs.getString("attraction").split(","))));
+                evaluation.setFoodOverallRating(rs.getInt("food_overall_rating"));
+                evaluation.setFoodPackingRating(rs.getInt("food_packing_rating"));
+                evaluation.setFoodTasteRating(rs.getInt("food_taste_rating"));
+            }
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error occurred at getEvaluationById()");
+        }
+        return evaluation;
+    }
+
     public ArrayList<Evaluation> getAllEvaluations(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -58,6 +89,25 @@ public class EvaluationDao {
             e.printStackTrace();
             System.out.println("Error occurred at getAllEvaluations()");
             return new ArrayList<Evaluation>();
+        }
+    }
+
+    public void deleteEvaluationById(String id){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String username = "asd";
+            String password = "bzsg.+CiGd2f";
+            String connectionUrl = "jdbc:mysql://asd-database.mysql.database.azure.com/demo";
+            Connection conn = DriverManager.getConnection(connectionUrl, username, password);
+
+            String sql = "DELETE FROM evaluation WHERE id = '"+id+"';";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error occurred at deleteEvaluationById()");
         }
     }
 }
