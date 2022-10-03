@@ -19,7 +19,7 @@ public class RegisterTest {
         user.setPhone("1234567890");
         user.setUserType("staff");
         //user.setIsActive(true);
-
+//woaimingge
         UserDBManager userDBManager = new UserDBManager();
         userDBManager.addUser(user);
 
