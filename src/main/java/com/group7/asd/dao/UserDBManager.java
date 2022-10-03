@@ -18,13 +18,15 @@ import java.sql.Statement;
  */
 public class UserDBManager {
 
-    private final Statement st;
+    private Statement st;
 
     public UserDBManager(Connection conn) throws SQLException {
 
         st = conn.createStatement();
     }
+    public UserDBManager() {
 
+    }
     //validate user from database
     public int validateUser(String username, String password) throws SQLException {
         int isExist = 0;
