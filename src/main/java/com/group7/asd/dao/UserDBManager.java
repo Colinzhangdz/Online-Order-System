@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.group7.asd.dao;
 
 import com.group7.asd.model.User;
@@ -18,11 +15,15 @@ import java.sql.Statement;
  */
 public class UserDBManager {
 
-    private final Statement st;
+    private Statement st;
 
     public UserDBManager(Connection conn) throws SQLException {
 
         st = conn.createStatement();
+    }
+
+    public UserDBManager() {
+
     }
 
     //validate user from database
