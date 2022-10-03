@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RegisterTest {
 
-    //Test add user
+    //Test add user,
     @Test
     public void testUser1() throws Exception{
         User user = new User();
