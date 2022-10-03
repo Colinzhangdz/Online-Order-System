@@ -19,6 +19,9 @@
 %>
 
 <a href="profile.jsp" > <input type="button" value="Profile page" ></a>
+<a href="staff.html" > <input type="button" value="Staff Management" ></a>
+<a href="customer.html" > <input type="button" value="Customer Management" ></a>
+<a href="check.html" > <input type="button" value="Checklist" ></a>
 
 <% if (type.equals("STAFF")) { %>
 <jsp:include page="main1.jsp" flush="true" />

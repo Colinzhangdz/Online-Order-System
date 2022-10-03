@@ -28,7 +28,7 @@ public class EvaluationTest {
         assertEquals(7, evaluationTest.getPlatformRating());
     }
 
-    //Test delete evaluation
+    //Test delete evaluation.
     @Test
     public void test2() throws Exception{
         EvaluationDao evaluationDao = new EvaluationDao();
