@@ -3,31 +3,58 @@ package com.group7.asd.model;
 
 
 public class Product {
-    private String id;
-    private String name;
-    private String price;
+    private int id;
+    private String brand_name;
+    private String company_name;
+    private int ordered;
+    private String description;
+    private int status;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getBrand_name() {
+        return brand_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBrand_name(String brand_name) {
+        this.brand_name = brand_name;
     }
 
-    public String getPrice() {
-        return price;
+    public String getCompany_name() {
+        return company_name;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
+    }
+
+    public int getOrdered() {
+        return ordered;
+    }
+
+    public void setOrdered(int ordered) {
+        this.ordered = ordered;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

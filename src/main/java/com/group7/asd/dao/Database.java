@@ -183,15 +183,18 @@ public class Database {
     public ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<Product>();
         try (Connection conn = getConnection()) {
-            String sql = "select id,name, price from product ";
+            String sql = "select id,brand_name,company_name,ordered,description,status from td_brand ";
             PreparedStatement st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
                 int i = 1;
-                product.setId(rs.getString(i++));
-                product.setName(rs.getString(i++));
-                product.setPrice(rs.getString(i++));
+                product.setId(Integer.parseInt(rs.getString(i++)));
+                product.setBrand_name(rs.getString(i++));
+                product.setCompany_name(rs.getString(i++));
+                product.setOrdered(Integer.parseInt(rs.getString(i++)));
+                product.setDescription(rs.getString(i++));
+                product.setStatus(Integer.parseInt(rs.getString(i++)));
                 products.add(product);
             }
             rs.close();
@@ -204,11 +207,15 @@ public class Database {
 
     public void addProduct(Product product) {
         try (Connection conn = getConnection()) {
-            String sql = "insert into product (name, price) values (?,?)";
+            String sql = "insert into tb_brand (brand_name, company_name,ordered, description, status) values (?,?,?,?,?)";
             PreparedStatement st = conn.prepareStatement(sql);
             int i = 1;
-            st.setString(i++, product.getName());
-            st.setString(i++, product.getPrice());
+            st.setString(i++, product.getBrand_name());
+            st.setString(i++, product.getCompany_name());
+            st.setString(i++, String.valueOf(product.getOrdered()));
+            st.setString(i++, product.getDescription());
+            st.setString(i++, String.valueOf(product.getStatus()));
+
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
@@ -219,11 +226,14 @@ public class Database {
 
     public void editProduct(Product product) {
         try (Connection conn = getConnection()) {
-            String sql = "update product set name=?, price=?";
+            String sql = "update tb_brand set brand_name=?, company_name=?,ordered=?,description=?,status=?";
             PreparedStatement st = conn.prepareStatement(sql);
             int i = 1;
-            st.setString(i++, product.getName());
-            st.setString(i++, product.getPrice());
+            st.setString(i++, product.getBrand_name());
+            st.setString(i++, product.getCompany_name());
+            st.setString(i++, String.valueOf(product.getOrdered()));
+            st.setString(i++, product.getDescription());
+            st.setString(i++, String.valueOf(product.getStatus()));
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
@@ -231,11 +241,11 @@ public class Database {
         }
     }
 
-    public void deleteProduct(String id) {
+    public void deleteProduct(int id) {
         try (Connection conn = getConnection()) {
-            String sql = "delete from product where id=?";
+            String sql = "delete from tb_brand where id=?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, id);
+            st.setInt(1, id);
             st.executeUpdate();
             st.close();
         } catch (Exception e) {

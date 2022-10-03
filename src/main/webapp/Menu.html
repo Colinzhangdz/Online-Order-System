@@ -30,23 +30,44 @@
                 label="id">
         </el-table-column>
         <el-table-column
-                prop="name"
-                label="name">
+                prop="brand_name"
+                label="brand_name">
         </el-table-column>
         <el-table-column
-                prop="price"
-                label="price">
+                prop="company_name"
+                label="company_name">
+        </el-table-column>
+        <el-table-column
+                prop="ordered"
+                label="ordered">
+        </el-table-column>
+        <el-table-column
+                prop="description"
+                label="description">
+        </el-table-column>
+        <el-table-column
+                prop="status"
+                label="status">
         </el-table-column>
 
     </el-table>
 </template>
 <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" width="40%" :close-on-click-modal="false">
     <el-form :model="productForm" :rules="rules" ref="productForm" label-width="100px" class="demo-productForm">
-        <el-form-item label="name" prop="name">
-            <el-input v-model="productForm.name"></el-input>
+        <el-form-item label="brand_name" prop="brand_name">
+            <el-input v-model="productForm.brand_name"></el-input>
         </el-form-item>
-        <el-form-item label="price" prop="price">
-            <el-input v-model="productForm.price"></el-input>
+        <el-form-item label="company_name" prop="company_name">
+            <el-input v-model="productForm.company_name"></el-input>
+        </el-form-item>
+        <el-form-item label="ordered" prop="ordered">
+            <el-input v-model="productForm.ordered"></el-input>
+        </el-form-item>
+        <el-form-item label="description" prop="description">
+            <el-input v-model="productForm.description"></el-input>
+        </el-form-item>
+        <el-form-item label="status" prop="status">
+            <el-input v-model="productForm.status"></el-input>
         </el-form-item>
 
     </el-form>
@@ -66,17 +87,24 @@
                 actionType:'',
                 dialogFormVisible:false,
                 rules:{
-                    name: [
+                    brand_name: [
                         {required: true, message: 'Cannot be empty!', trigger: 'change'}],
-                    phone: [
+                    company_name: [
                         {required: true, message: 'Cannot be empty!', trigger: 'change'}],
-                    address: [
+                    ordered: [
+                        {required: true, message: 'Cannot be empty!', trigger: 'change'}],
+                    description: [
+                        {required: true, message: 'Cannot be empty!', trigger: 'change'}],
+                    status: [
                         {required: true, message: 'Cannot be empty!', trigger: 'change'}]
                 },
                 productForm:{
                     id:'',
-                    name:'',
-                    price:'',
+                    brand_name:'',
+                    company_name:'',
+                    ordered:'',
+                    description:'',
+                    status:''
 
                 },
                 tableData: []

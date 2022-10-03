@@ -2,9 +2,12 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>商城</title>
+		<title>Shopping Cart</title>
 		<link rel="stylesheet" href="./css/common.css">
 		<!-- <link rel="stylesheet" href="./css/cart.css"> -->
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>
 	</head>
 	<body>
 	<button>
@@ -17,16 +20,16 @@
 		<div id="main">
 			<div class="container">
 				<div id="cart">
-					<h1>购物车</h1>
+					<h1>ShoppingCart</h1>
 					<form action="#" method="post">
 						<table class="form">
 							<thead>
 								<tr>
-									<th width="8%">选择</th>
-									<th width="50%">商品</th>
-									<th width="13%">单价（元）</th>
-									<th width="15%">数量</th>
-									<th width="14%">金额（元）</th>
+									<th width="8%">Choose</th>
+									<th width="50%">Product</th>
+									<th width="13%">Single Price</th>
+									<th width="15%">Number</th>
+									<th width="14%">Total Price</th>
 								</tr>
 							</thead>
 							<tbody id="cart-goods-list">
@@ -142,7 +145,7 @@
 						method:"get",
 						// url:"http://localhost:8080/asd/selectAllServlet"
 						// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
-						url:"http://localhost:8080/asd/cartServlet?uid=1"
+						url:"./cartServlet?uid=1"
 					}).then(function (resp) {
 						console.log(resp.data)
 						console.log(_this.productList)

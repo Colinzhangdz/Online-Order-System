@@ -12,6 +12,9 @@
             background: #f0f9eb;
         }
     </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>
 
 </head>
 <body>
@@ -172,10 +175,10 @@
         methods: {
             tomenu(){
 
-                window.history.pushState(null, null, "http://localhost:8080/asd/menu.html");
+                window.history.pushState(null, null, "./menuName.html");
             },
             tocart(){
-                window.history.pushState(null, null, "http://localhost:8080/asd/vue.html");
+                window.history.pushState(null, null, "./cart.html");
             },
             addToCart(itme){
                 console.log(itme)
@@ -191,7 +194,7 @@
                 // 发送ajax请求，添加数据
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/asd/addCartServlet",
+                    url:"./addCartServlet",
                     data:_this.brand1
                 }).then(function (resp) {
                     if(resp.data == "success"){
@@ -221,7 +224,8 @@
 
                 axios({
                     method:"get",
-                    url:"http://localhost:8080/asd/selectAllServlet"
+                    url:"./selectAllServlet"
+
                 }).then(function (resp) {
                     _this.tableData = resp.data;
                 })
@@ -252,7 +256,7 @@
                 // 发送ajax请求，添加数据
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/asd/addServlet",
+                    url:"./addServlet",
                     data:_this.brand
                 }).then(function (resp) {
                     if(resp.data == "success"){
