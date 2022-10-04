@@ -80,7 +80,8 @@
 									<td colspan="3">
 										<span>Total：</span>
 										<strong id="total-amount">￥<em id="total-amount-em">{{getTotal}}</em></strong>
-										<input type="submit" @click="submit"value="pay" id="settlement">
+										<inut type="button"  @click="paymentOrder" value="payment" id="settlement">pay</inut>
+										<!--<input type="submit" @click="submit"value="pay" id="settlement">-->
 									</td>
 								</tr>
 							</tfoot>
@@ -141,7 +142,19 @@
 					}
 				}
 			},
-			methods:{
+			methods: {
+				paymentOrder() {
+					let str = ""
+					for(let i = 0;i<this.productList.length;i++) {
+						if(this.productList[i].select) {
+							str += this.productList[i].id + "," + this.productList[i].pro_num + ":"
+						}
+					}
+					if(str != "") {
+						str = str.substring(0,str.length - 1)
+					}
+					window.location.href="ShoppingOrder.html?param=" + str;
+				},
 				// select all
 				selectAll(){
 					var _this = this;
