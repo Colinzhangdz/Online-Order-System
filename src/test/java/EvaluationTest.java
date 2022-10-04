@@ -12,6 +12,7 @@ public class EvaluationTest {
     //Test add evaluation
     @Test
     public void test1() throws Exception{
+
         Evaluation evaluation = new Evaluation();
         evaluation.setId("a6e06601-5953-4bfb-ad81-f61917f19558");
         evaluation.setPlatformRating(7);
@@ -21,6 +22,7 @@ public class EvaluationTest {
         evaluation.setFoodOverallRating(3);
         evaluation.setFoodPackingRating(4);
         evaluation.setFoodTasteRating(5);
+
         EvaluationDao evaluationDao = new EvaluationDao();
         evaluationDao.createEvaluation(evaluation);
 
