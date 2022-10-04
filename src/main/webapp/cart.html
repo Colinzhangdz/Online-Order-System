@@ -1,222 +1,219 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Shopping Cart</title>
-	<link rel="stylesheet" href="./css/common.css">
-	<!-- <link rel="stylesheet" href="./css/cart.css"> -->
-	<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
-	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>
-</head>
-<body>
-<button>
-	<a href="menuName.html">menu</a></button>
-<button>
+	<head>
+		<link rel="stylesheet" href="css/mystyle.css">
+		<meta charset="utf-8">
+		<title>Shopping Cart</title>
+		<link rel="stylesheet" href="./css/common.css">
+		<!-- <link rel="stylesheet" href="./css/cart.css"> -->
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>
+	</head>
+	<body>
+
+	<button>
+		<a href="menuName.html">menu</a></button>
+	<button>
 	<a href="cart.html">
 		cart
 	</a>
-</button>
-<div id="main">
-	<div class="container">
-		<div id="cart">
-			<h1>ShoppingCart</h1>
-			<form action="#" method="post">
-				<table class="form">
-					<thead>
-					<tr>
-						<th width="8%">Choose</th>
-						<th width="50%">Product</th>
-						<th width="13%">Single Price</th>
-						<th width="15%">Number</th>
-						<th width="14%">Total Price</th>
-					</tr>
-					</thead>
-					<tbody id="cart-goods-list">
-					<tr v-for="cart in productList">
-						<td>
-							<input type="checkbox" name="good-id" :value="1" v-model="cart.select">
-						</td>
-						<td class="goods">
-							<!--										<div class="goods-image">-->
-							<!--											<img v-bind:src="cart.pro_img">-->
-							<!--										</div>-->
-							<div class="goods-information">
-								<h3>{{cart.pro_name}}</h3>
-								<ul>
-									<li>{{cart.pro_purity}}</li>
-									<li>{{cart.pro_service}}</li>
-								</ul>
-							</div>
-						</td>
-						<td>
-							<span class="price">￥<em class="price-em">{{cart.pro_price.toFixed(2)}}</em></span>
-						</td>
-						<td>
-							<div class="combo">
-								<input type="button" name="minus" value="-" class="combo-minus" @click="cart.pro_num<2?cart.pro_num=1:cart.pro_num--">
-								<input type="text" name="count" v-model.number="cart.pro_num" class="combo-value">
-								<input type="button" name="plus" value="+" class="combo-plus" v-on:click="cart.pro_num++">
-							</div>
-						</td>
-						<td>
-							<strong class="amount">￥<em class="amount-em">{{(cart.pro_price*cart.pro_num).toFixed(2)}}</em></strong>
-						</td>
-					</tr>
-					</tbody>
-					<tfoot v-show="productList.length!=0">
-					<tr>
-						<td colspan="2">
-							<label>
-								<input type="checkbox" name="all" v-model="isSelectAll">
-								<span @click="">choose all</span>
-							</label>
-							<a href="#" id="cart-delete" @click="del()">delete</a>
-						</td>
-						<td colspan="3">
-							<span>Total：</span>
-							<strong id="total-amount">￥<em id="total-amount-em">{{getTotal}}</em></strong>
-							<inut type="button"  @click="paymentOrder" value="payment" id="settlement">pay</inut>
-							<!--<input type="submit" @click="submit"value="pay" id="settlement">-->
-						</td>
-					</tr>
-					</tfoot>
+	</button>
 
-				</table>
-			</form>
-			<div v-show="productList.length===0">
-				The shopping cart is still empty~ Come and shop~
+		<div id="main">
+			<div class="container">
+				<div id="cart">
+					<h1>ShoppingCart</h1>
+					<form action="#" method="post">
+						<table class="form">
+							<thead>
+								<tr>
+									<th width="8%">Choose</th>
+									<th width="50%">Product</th>
+									<th width="13%">Single Price</th>
+									<th width="15%">Number</th>
+									<th width="14%">Total Price</th>
+								</tr>
+							</thead>
+							<tbody id="cart-goods-list">
+								<tr v-for="cart in productList">
+									<td>
+										<input type="checkbox" name="good-id" :value="1" v-model="cart.select" :evalue="cart.id">
+									</td>
+									<td class="goods">
+<!--										<div class="goods-image">-->
+<!--											<img v-bind:src="cart.pro_img">-->
+<!--										</div>-->
+										<div class="goods-information">
+											<h3>{{cart.pro_name}}</h3>
+											<ul>
+												<li>{{cart.pro_purity}}</li>
+												<li>{{cart.pro_service}}</li>
+											</ul>
+										</div>
+									</td>
+									<td>
+										<span class="price">￥<em class="price-em">{{cart.pro_price.toFixed(2)}}</em></span>
+									</td>
+									<td>
+										<div class="combo">
+											<input type="button" name="minus" value="-" class="combo-minus" @click="cart.pro_num<2?cart.pro_num=1:cart.pro_num--">
+											<input type="text" name="count" v-model.number="cart.pro_num" class="combo-value">
+											<input type="button" name="plus" value="+" class="combo-plus" v-on:click="cart.pro_num++">
+										</div>
+									</td>
+									<td>
+										<strong class="amount">￥<em class="amount-em">{{(cart.pro_price*cart.pro_num).toFixed(2)}}</em></strong>
+									</td>
+								</tr>
+							</tbody>
+							<tfoot v-show="productList.length!=0">
+								<tr>
+									<td colspan="2">
+										<label>
+                                            <input type="checkbox" name="all" v-model="isSelectAll">
+                                            <span @click="">choose all</span>
+                                        </label>
+										<a href="#" id="cart-delete" @click="del()">delete</a>
+
+									</td>
+									<td colspan="3">
+										<span>Total：</span>
+										<strong id="total-amount">￥<em id="total-amount-em">{{getTotal}}</em></strong>
+										<input type="submit" @click="submit"value="pay" id="settlement">
+									</td>
+								</tr>
+							</tfoot>
+
+						</table>
+					</form>
+					<div v-show="productList.length===0">
+						The shopping cart is still empty~ Come and shop~
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-</body>
-<script src="element-ui/lib/index.js"></script>
-<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
-//<script src="js/vue.js"></script>
-//<script src="js/axios-0.18.0.js"></script>
-<script type="text/javascript">
-	new Vue({
-		el:"#cart",
-		data:{
-			productList:[
-				{
-					'pro_name': 'rice',//产品名称
-					'pro_purity': 'china',// 地区
-					'pro_service': "Delicious rice",//描述
-					'pro_num': 1,//数量
-					'pro_price': 1,//单价
-					'select': true //选中状态
-				}
-			]
-		},
-		mounted(){
-			this.selectAll();
-		},
-		computed:{
-			getTotal:function(){
-				var newArr=this.productList.filter(function(val){
-					return val.select===true;
-				})
-				var price=0;
-				for(var i=0;i<newArr.length;i++){
-					price+=newArr[i].pro_num*newArr[i].pro_price
-				}
-				return price.toFixed(2)
+	</body>
+	<script src="element-ui/lib/index.js"></script>
+	<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+	//<script src="js/vue.js"></script>
+	//<script src="js/axios-0.18.0.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:"#cart",
+			data:{
+				productList:[
+					{
+						'id':'1',
+						'pro_name': 'rice',//产品名称
+						'pro_purity': 'china',// 地区
+						'pro_service': "chinarice",//描述
+						'pro_num':1,//数量
+						'pro_price':1,//单价
+						'select': true //选中状态
+					}
+				]
 			},
-			isSelectAll:{
-				get:function(){
-					return this.productList.every(function(val){
+			mounted(){
+				this.selectAll();
+			},
+			computed:{
+				getTotal:function(){
+					var newArr=this.productList.filter(function(val){
 						return val.select===true;
 					})
+					var price=0;
+					for(var i=0;i<newArr.length;i++){
+						price+=newArr[i].pro_num*newArr[i].pro_price
+					}
+					return price.toFixed(2)
 				},
-				set:function(newValue){
-					for(var i=0;i<this.productList.length;i++){
-						this.productList[i].select=newValue;
-					}
-				}
-			}
-		},
-		methods:{
-			paymentOrder() {
-				let str = ""
-				for(let i = 0;i<this.productList.length;i++) {
-					if(this.productList[i].select) {
-						str += this.productList[i].id + "," + this.productList[i].pro_num + ":"
-					}
-				}
-				if(str != "") {
-					str = str.substring(0,str.length - 1)
-				}
-				window.location.href="ShoppingOrder.html?param=" + str;
-			},
-			// select all
-			selectAll(){
-				var _this = this;
-
-				axios({
-					method:"get",
-					// url:"http://localhost:8080/asd/selectAllServlet"
-					// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
-					url:"./cartServlet?uid=1"
-				}).then(function (resp) {
-					console.log(resp.data)
-					console.log(_this.productList)
-					for (let i = 0; i < resp.data.length; i++) {
-						var tep={
-							'id': resp.data[i].id,//产品id
-							'pro_name': resp.data[i].brandName,//产品名称
-							'pro_num': resp.data[1].status,//数量
-							'pro_purity':resp.data[1].companyName,
-							'pro_service':resp.data[1].description,
-							// 'pro_img': 'img/1.jpg',//图片链接
-							'pro_price': resp.data[i].ordered,//单价,
-							'select': true ,//选中状态
-						}
-						_this.productList.push(tep)
-
-					}
-					console.log(_this.productList)
-				})
-			},
-
-
-
-			submit(){
-				window.alert("You sure you want to delete it1?")
-				console.log("helllo")
-			},
-
-			del:function(){
-				if(confirm("You sure you want to delete it?")){
-					var newArr=[];
-					for(var i=0;i<this.productList.length;i++){
-						if(this.productList[i].select===false){
-							newArr.push(this.productList[i])
-						}
-					}
-					this.productList=newArr;
-				}
-				let aa=document.getElementById("good-id")
-				console.log(aa)
-				for (let i = 0; i < aa.length; i++) {
-					if (aa[i].checked==true){
-						console.log(aa[i]._value.id)
-						axios({
-							method:"get",
-							// url:"http://localhost:8080/asd/selectAllServlet"
-							// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
-							url:"./DeleteCartServlet?id="+aa[i]._value.id
-						}).then(function (resp) {
-							console.log(resp.data)
+				isSelectAll:{
+					get:function(){
+						return this.productList.every(function(val){
+							return val.select===true;
 						})
+					},
+					set:function(newValue){
+						for(var i=0;i<this.productList.length;i++){
+							this.productList[i].select=newValue;
+						}
+					}
+				}
+			},
+			methods:{
+				// select all
+				selectAll(){
+					var _this = this;
+
+					axios({
+						method:"get",
+						// url:"http://localhost:8080/asd/selectAllServlet"
+						// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
+						url:"./cartServlet?uid=1"
+					}).then(function (resp) {
+						console.log(resp.data)
+						console.log(_this.productList)
+						for (let i = 0; i < resp.data.length; i++) {
+							var tep={
+
+								'id': resp.data[i].id,//产品ID
+								'pro_name': resp.data[i].brandName,//产品名称
+										'pro_num': resp.data[1].status,//数量
+									'pro_purity':resp.data[1].companyName,
+										'pro_service':resp.data[1].description,
+										// 'pro_img': 'img/1.jpg',//图片链接
+										'pro_price': resp.data[i].ordered,//单价,
+										'select': true ,//选中状态
+							}
+							_this.productList.push(tep)
+
+						}
+						console.log(_this.productList)
+					})
+				},
+
+
+
+                submit(){
+                window.alert("You sure you want to delete it1?")
+                console.log("helllo")
+                },
+				//new
+
+
+				//new
+
+				del:function(){
+					if(confirm("You sure you want to delete it?")){
+						var newArr=[];
+						for(var i=0;i<this.productList.length;i++){
+							if(this.productList[i].select===false){
+								newArr.push(this.productList[i])
+							}
+						}
+						this.productList=newArr;
+					}
+					let aa=document.getElementsByName("good-id")
+					console.log(aa)
+					for (let i = 0; i < aa.length; i++) {
+						if (aa[i].checked==true){
+							console.log(aa[i]._value.getAttribute("evalue"))
+							axios({
+								method:"get",
+								// url:"http://localhost:8080/asd/selectAllServlet"
+								// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
+								url:"./deleteCartServlet?id="+aa[i].getAttribute("evalue")
+							}).then(function (resp) {
+								console.log(resp.data)
+							})
+
+						}
 
 					}
-
 				}
 			}
-		}
-
-	})
-</script>
+			
+		})
+	</script>
 </html>
