@@ -317,9 +317,18 @@ public class RegisterTest {
         UserDBManager userDBManager = new UserDBManager(conn);
         userDBManager.addUser(user);
 
+
         //User userTest = userDBManager.findUser("Test User", "1234");
         //assertEquals(1234567890, userTest.getPhone());
     }
+    @Test
+    public void testUser2() throws Exception{
+        conn = db.openConnection();
+        UserDBManager userDBManager = new UserDBManager(conn);
+        userDBManager.deleteUser(10);
 
+        //User userTest = userDBManager.findUser("Test User", "1234");
+        //assertNull(userTest.getPhone());
+    }
 
 }
