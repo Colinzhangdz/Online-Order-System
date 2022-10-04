@@ -14,8 +14,8 @@ public interface CartMapper {
      * 查询所有
      * @return
      */
-    /*@Select("select * from tb_cart where uid = #{uid}")*/
-    @Select("select * from tb_cart")
+    @Select("select * from tb_cart where uid = #{uid}")
+    //@Select("select * from tb_cart")
     @ResultMap("cartResultMap")
     List<Cart> selectAll(Integer uid);
 

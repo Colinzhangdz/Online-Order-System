@@ -25,12 +25,12 @@ public class CartServlet extends HttpServlet {
         String userId=request.getParameter("uid");
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
-/*if(user == null){
+if(user == null){
     response.getWriter().write(JSON.toJSONString(new ArrayList()));
 }
-        Integer uid = user.getUserId();*/
+        Integer uid = user.getUserId();
         //1. 调用service查询
-        List<Cart> carts = cs.selectAll(Integer.valueOf(userId));
+        List<Cart> carts = cs.selectAll(Integer.valueOf(uid));
 
 
         //2. 转为JSON
