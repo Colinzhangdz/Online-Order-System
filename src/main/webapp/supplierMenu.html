@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/mystyle.css">
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
@@ -69,12 +70,16 @@
     <!--表格-->
     <template>
         <button>
-            <a href="menuName.html">menu</a></button>
+            <a href="profile.jsp">Profile</a></button>
         <button>
-            <a href="cart.html">
-                cart
+            <a href="SupplierMenu.html">Supplier Menu</a></button>
+        <button>
+            <a href="SupplierCart.html">
+                Supplier Cart
             </a>
         </button>
+        <button>
+            <a href="login.jsp">Login Out</a></button>
         <el-table
                 :data="tableData"
                 style="width: 100%"
@@ -175,10 +180,10 @@
         methods: {
             tomenu(){
 
-                window.history.pushState(null, null, "./menuName.html");
+                window.history.pushState(null, null, "./supplierMenu.html");
             },
             tocart(){
-                window.history.pushState(null, null, "./cart.html");
+                window.history.pushState(null, null, "./supplierCart.html");
             },
             addToCart(itme){
                 console.log(itme)
