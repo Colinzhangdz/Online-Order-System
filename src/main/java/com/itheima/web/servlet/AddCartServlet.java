@@ -23,9 +23,9 @@ public class AddCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //1. 接收品牌数据
+        //1. Receive brand data
         BufferedReader br = request.getReader();
-        String params = br.readLine();//json字符串
+        String params = br.readLine();//json
         System.out.println(params);
         //if no user login it will cant add
         HttpSession session = request.getSession();
@@ -36,10 +36,10 @@ public class AddCartServlet extends HttpServlet {
         //转为Cart对象
         Cart brand = JSON.parseObject(params, Cart.class);
         brand.setUid(user.getUserId());
-        //2. 调用service添加
+        //2. Call service add
         cartService.add(brand);
 
-        //3. 响应成功的标识
+        //3.  Response success marker
         response.getWriter().write("success");
     }
 

@@ -21,18 +21,18 @@ public class AddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //1. 接收品牌数据
+        //1. Receive brand data
         BufferedReader br = request.getReader();
         String params = br.readLine();//json字符串
         System.out.println(params);
 
-        //转为Brand对象
+        //Convert to Brand object
         Brand brand = JSON.parseObject(params, Brand.class);
 
-        //2. 调用service添加
+        //2. Call service to add
         brandService.add(brand);
 
-        //3. 响应成功的标识
+        //3.  Response success marker
         response.getWriter().write("success");
     }
 

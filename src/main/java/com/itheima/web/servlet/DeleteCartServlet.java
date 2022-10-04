@@ -22,16 +22,16 @@ public class DeleteCartServlet extends HttpServlet {
         //Integer id = Integer.valueOf(request.getParameter("id"));
         //System.out.println(id);
 //        BufferedReader br = request.getReader();
-//        String params = br.readLine();//json字符串
+//        String params = br.readLine();//json
 //        System.out.println(params);
 
-        //转为Cart对象
+        //Chanage Cart Obj
 
-        //2. 调用service添加
+        //2. call service add
         cartService.delete(id);
         //cartService.delete(id);
 
-        //3. 响应成功的标识
+        //3. Response success ID
         response.getWriter().write("success");
     }
 

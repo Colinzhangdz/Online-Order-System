@@ -20,13 +20,13 @@ public class SelectAllServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //1. 调用service查询
+        //1. Calling service queries
         List<Brand> brands = brandService.selectAll();
 
-        //2. 转为JSON
+        //2.  Chanage JSON
         String jsonString = JSON.toJSONString(brands);
 
-        //3. 写数据
+        //3. Write Data
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }

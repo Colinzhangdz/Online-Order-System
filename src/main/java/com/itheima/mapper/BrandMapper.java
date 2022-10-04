@@ -10,7 +10,7 @@ import java.util.List;
 public interface BrandMapper {
 
     /**
-     * 查询所有
+     *
      * @return
      */
     @Select("select * from tb_brand")
@@ -18,7 +18,7 @@ public interface BrandMapper {
     List<Brand> selectAll();
 
     /**
-     * 添加数据
+     * add data
      * @param brand
      */
     @Insert("insert into tb_brand values(null,#{brandName},#{companyName},#{ordered},#{description},#{status})")

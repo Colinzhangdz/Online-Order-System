@@ -11,7 +11,8 @@
 	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>
 </head>
 <body>
-
+<button>
+	<a href="profile.jsp">Profile</a></button>
 <button>
 	<a href="menuName.html">menu</a></button>
 <button>
@@ -19,6 +20,13 @@
 		cart
 	</a>
 </button>
+<button>
+	<a href="ShoppingOrder.html">Order</a></button>
+<button>
+	<a href="evaluation.html">Evaluation</a></button>
+<button>
+	<a href="login.jsp">LogOut</a></button>
+
 
 <div id="main">
 	<div class="container">
@@ -80,7 +88,9 @@
 						<td colspan="3">
 							<span>Total：</span>
 							<strong id="total-amount">￥<em id="total-amount-em">{{getTotal}}</em></strong>
-							<input type="submit" @click="submit"value="pay" id="settlement">
+							<!--<input type="submit" @click="submit"value="pay" id="settlement">-->
+							<button>
+								<a href="ShoppingOrder.html" id="settlement">Order</a></button>
 						</td>
 					</tr>
 					</tfoot>
@@ -141,7 +151,7 @@
 				axios({
 					method:"get",
 					// url:"http://localhost:8080/asd/selectAllServlet"
-					// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
+					//
 					url:"./cartServlet?uid=1"
 				}).then(function (resp) {
 					console.log(resp.data)
@@ -149,14 +159,14 @@
 					for (let i = 0; i < resp.data.length; i++) {
 						var tep={
 
-							'id': resp.data[i].id,//产品ID
-							'pro_name': resp.data[i].brandName,//产品名称
-							'pro_num': resp.data[i].status,//数量
-							'pro_purity':resp.data[i].companyName,
+							'id': resp.data[i].id,//ProductID
+							'pro_name': resp.data[i].brandName,//ProductName
+							'pro_num': resp.data[i].status,//Number
+							'pro_purity':resp.data[i].companyName,//CompanyName
 							'pro_service':resp.data[i].description,
-							// 'pro_img': 'img/1.jpg',//图片链接
-							'pro_price': resp.data[i].ordered,//单价,
-							'select': true ,//选中状态
+							// 'pro_img': 'img/1.jpg',//
+							'pro_price': resp.data[i].ordered,//Price,
+							'select': true ,//Choose
 						}
 						_this.productList.push(tep)
 
@@ -168,9 +178,8 @@
 
 
 			submit(){
-				window.location.href="ShoppingOrder.html?param=";
+				window.location.href="ShoppingOrder.html?";
 
-				//console.log("helllo")
 			},
 			//new
 
@@ -195,7 +204,7 @@
 						axios({
 							method:"get",
 							// url:"http://localhost:8080/asd/selectAllServlet"
-							// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
+							//go DeleteCartServlet
 							url:"./deleteCartServlet?id="+aa[i].getAttribute("evalue")
 						}).then(function (resp) {
 							console.log(resp.data)

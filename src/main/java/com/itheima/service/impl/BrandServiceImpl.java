@@ -10,21 +10,21 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import java.util.List;
 
 public class BrandServiceImpl implements BrandService {
-    //1. 创建SqlSessionFactory 工厂对象
+    //1. create SqlSessionFactory obj
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
 
 
     @Override
     public List<Brand> selectAll() {
-        //2. 获取SqlSession对象
+        //2. get SqlSession
         SqlSession sqlSession = factory.openSession();
-        //3. 获取BrandMapper
+        //3. get BrandMapper
         BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
 
-        //4. 调用方法
+        //4. call
         List<Brand> brands = mapper.selectAll();
 
-        //5. 释放资源
+        //5. close
         sqlSession.close();
 
         return brands;
@@ -32,16 +32,16 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void add(Brand brand) {
-        //2. 获取SqlSession对象
+        //2. get SqlSession obj
         SqlSession sqlSession = factory.openSession();
-        //3. 获取BrandMapper
+        //3. get BrandMapper
         BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
 
-        //4. 调用方法
+        //4. call
         mapper.add(brand);
-        sqlSession.commit();//提交事务
+        sqlSession.commit();//comit
 
-        //5. 释放资源
+        //5. close
         sqlSession.close();
     }
 }

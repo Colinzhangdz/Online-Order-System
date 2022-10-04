@@ -11,7 +11,7 @@ import java.util.List;
 public interface CartMapper {
 
     /**
-     * 查询所有
+     *
      * @return
      */
     @Select("select * from tb_cart where uid = #{uid}")
@@ -20,7 +20,7 @@ public interface CartMapper {
     List<Cart> selectAll(Integer uid);
 
     /**
-     * 添加数据
+     * add Data
      * @param cart
      */
     @Insert("insert into tb_cart values(#{id},#{uid},#{brandName},#{companyName},#{ordered},#{description},#{status})")

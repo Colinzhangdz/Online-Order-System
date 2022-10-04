@@ -29,15 +29,15 @@ if(user == null){
     response.getWriter().write(JSON.toJSONString(new ArrayList()));
 }
         Integer uid = user.getUserId();
-        //1. 调用service查询
+        //1. Calling service queries
         List<Cart> carts = cs.selectAll(Integer.valueOf(uid));
 
 
-        //2. 转为JSON
+        //2. Chanage JSON
         String jsonString = JSON.toJSONString(carts);
 
 
-        //3. 写数据
+        //3. Write Data
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
 

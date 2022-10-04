@@ -7,13 +7,13 @@ import java.util.List;
 public interface BrandService {
 
     /**
-     * 查询所有
+     * Search all
      * @return
      */
     List<Brand> selectAll();
 
     /**
-     * 添加数据
+     * Add Data
      * @param brand
      */
     void add(Brand brand);

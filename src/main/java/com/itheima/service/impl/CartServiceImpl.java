@@ -15,14 +15,14 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<Cart> selectAll(Integer uid) {
         SqlSession sqlSession = factory.openSession();
-        //3. 获取BrandMapper
+        //3. Get BrandMapper
 
         CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
-        //4. 调用方法
+        //4. Call
         List<Cart> carts = mapper.selectAll(uid);
 
-        //5. 释放资源
+        //5. Close
         sqlSession.close();
 
         return carts;
@@ -30,31 +30,31 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void add(Cart cart) {
-        //2. 获取SqlSession对象
+        //2. get SqlSession obj
         SqlSession sqlSession = factory.openSession();
-        //3. 获取BrandMapper
+        //3. Get BrandMapper
         CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
-        //4. 调用方法
+        //4. Call
         mapper.add(cart);
-        sqlSession.commit();//提交事务
+        sqlSession.commit();//comit
 
-        //5. 释放资源
+        //5. Close
         sqlSession.close();
     }
 
     @Override
     public void delete(Integer id) {
-        //2. 获取SqlSession对象
+        //2. get SqlSession obj
         SqlSession sqlSession = factory.openSession();
-        //3. 获取BrandMapper
+        //3. get BrandMapper
         CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
-        //4. 调用方法
+        //4. call
         mapper.delete(id);
-        sqlSession.commit();//提交事务
+        sqlSession.commit();//comit
 
-        //5. 释放资源
+        //5. close
         sqlSession.close();
     }
 }
