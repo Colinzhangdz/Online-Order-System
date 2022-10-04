@@ -9,10 +9,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// Test add staff
 public class StaffTest {
     @Test
-    public void testAddStaff() throws Exception{
+    public void testAddStaff(){
     ArrayList<Staff> staffs = Database.instance().getStaffs();
     Staff staff = new Staff();
         staff.setAge("30");
