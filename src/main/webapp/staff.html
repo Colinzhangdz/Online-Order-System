@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/mystyle.css">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"/>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
@@ -12,6 +13,7 @@
             background: #f5f7fa;
         }
     </style>
+    <link rel="stylesheet" href="css/mystyle.css">
 </head>
 <body>
 <a href="profile.jsp" > <input type="button" value="Profile page" ></a>
@@ -159,6 +161,7 @@
             editStaff(){
                 this.dialogTitle = 'Edit Staff';
                 this.actionType = 'edit';
+                // Verify that the data to be updated is selected
                 if(JSON.stringify(this.selectedRow)==="{}") {
                     this.$message.error('Please select a record!');
                     return;
@@ -167,8 +170,10 @@
                 this.staffForm = this.selectedRow;
             },
             save(){
+                // Verify that the data to be saved is legal, validate the rules above
                 this.$refs["staffForm"].validate((valid) => {
                         if (valid) {
+                            // verify that the save operation is performed, actionType is defined in addStaff() or editStaff()
                             this.loading = true;
                             axios.get("StaffsServlet", {
                                     params: {
@@ -194,11 +199,13 @@
                 });
             },
             deleteStaff(){
+                // Delete the data and make a pop-up window to confirm the reminder
                 this.$confirm('Are you sure to delete?', 'Tips', {
                     confirmButtonText: 'OK',
                     cancelButtonText: 'Cancel',
                     type: 'warning'
                 }).then(() => {
+                    // Execute the delete request after confirming the deletion
                     this.actionType = 'delete';
                     this.loading = true;
                     axios.get("StaffsServlet", {

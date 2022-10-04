@@ -9,13 +9,17 @@ import com.itheima.pojo.Cart;
 import java.sql.*;
 import java.util.ArrayList;
 
+
+// Database related operations
 public class Database {
     private static Database _instance = null;
 
+    // Private constructor
     private Database() {
 
     }
 
+    // Get database operation instances
     public static Database instance() {
         if (_instance == null) {
             _instance = new Database();
@@ -23,13 +27,15 @@ public class Database {
         return _instance;
     }
 
+    // Get database connection
     private Connection getConnection() throws SQLException {
         try {
+            // Set the database driver to mysql
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
+        // Set the database address/account/password and get the database connection
         Connection conn = DriverManager.getConnection("jdbc:mysql://asd-database.mysql.database.azure.com/demo?characterEncoding=utf8&useSSL=true", "asd", "bzsg.+CiGd2f");
 
         return conn;
@@ -111,13 +117,16 @@ public class Database {
         }
     }
 
+    // Get a list of all Customers
     public ArrayList<Customer> getCustomers() {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         try (Connection conn = getConnection()) {
             String sql = "select id,name, phone, address, comment from customer ";
             PreparedStatement st = conn.prepareStatement(sql);
+            // Get database execution results
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                // Encapsulate into a Customer object
                 Customer customer = new Customer();
                 int i = 1;
                 customer.setId(rs.getString(i++));
@@ -135,15 +144,18 @@ public class Database {
         return customers;
     }
 
+    // Add a Customer
     public int addCustomer(Customer customer) {
         try (Connection conn = getConnection()) {
             String sql = "insert into customer (name, phone, address, comment) values (?,?,?,?)";
             PreparedStatement st = conn.prepareStatement(sql);
             int i = 1;
+            // Set SQL parameters
             st.setString(i++, customer.getName());
             st.setString(i++, customer.getPhone());
             st.setString(i++, customer.getAddress());
             st.setString(i++, customer.getComment());
+            // Execute SQL
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
@@ -152,6 +164,7 @@ public class Database {
         return 0;
     }
 
+    // Update a Customer
     public void editCustomer(Customer customer) {
         try (Connection conn = getConnection()) {
             String sql = "update customer set name=?, phone=?, address=?, comment=? where id=?";
@@ -169,6 +182,7 @@ public class Database {
         }
     }
 
+    // DeleteCustomer
     public void deleteCustomer(String id) {
         try (Connection conn = getConnection()) {
             String sql = "delete from customer where id=?";
