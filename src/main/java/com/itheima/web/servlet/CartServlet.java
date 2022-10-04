@@ -20,16 +20,20 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId=request.getParameter("uid");
+
         Integer uid = Integer.parseInt(userId);
         //1. 调用service查询
         List<Cart> carts = cs.selectAll(uid);
 
+
         //2. 转为JSON
         String jsonString = JSON.toJSONString(carts);
+
 
         //3. 写数据
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
+
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.List;
 
 public class CartServiceImpl implements CartService {
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
+
     @Override
     public List<Cart> selectAll(Integer uid) {
         SqlSession sqlSession = factory.openSession();
@@ -26,6 +27,7 @@ public class CartServiceImpl implements CartService {
 
         return carts;
     }
+
     @Override
     public void add(Cart cart) {
         //2. 获取SqlSession对象
@@ -42,14 +44,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(String brandName) {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
         //3. 获取BrandMapper
         CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
         //4. 调用方法
-        mapper.delete(id);
+        mapper.delete(brandName);
         sqlSession.commit();//提交事务
 
         //5. 释放资源
