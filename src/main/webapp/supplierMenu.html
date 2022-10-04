@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .el-table .warning-row {
+            background: oldlace;
+        }
+
+        .el-table .success-row {
+            background: #f0f9eb;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+
+
+    <!--        <el-button type="danger" plain>Batch delete</el-button>-->
+    <!--        <el-button type="primary" plain @click="dialogVisible = true">new</el-button>-->
+
+    </el-row>
+    <!--添加数据对话框表单-->
+    <el-dialog
+            title="Edit the brand"
+            :visible.sync="dialogVisible"
+            width="30%"
+    >
+
+        <el-form ref="form" :model="brand" label-width="80px">
+            <el-form-item label="The brand name">
+                <el-input v-model="brand.brandName"></el-input>
+            </el-form-item>
+
+            <el-form-item label="Brand introduction">
+                <el-input v-model="brand.companyName"></el-input>
+            </el-form-item>
+
+            <el-form-item label="price">
+                <el-input v-model="brand.ordered"></el-input>
+            </el-form-item>
+
+            <el-form-item label="comment">
+                <el-input type="textarea" v-model="brand.description"></el-input>
+            </el-form-item>
+
+            <el-form-item label="status">
+                <el-switch v-model="brand.status"
+                           active-value="1"
+                           inactive-value="0"
+                ></el-switch>
+            </el-form-item>
+
+
+            <el-form-item>
+                <el-button type="primary" @click="addBrand">commit</el-button>
+                <el-button @click="dialogVisible = false">chanel</el-button>
+            </el-form-item>
+        </el-form>
+
+    </el-dialog>
+
+
+    <!--表格-->
+    <template>
+        <button>
+            <a href="menuName.html">menu</a></button>
+        <button>
+            <a href="cart.html">
+                cart
+            </a>
+        </button>
+        <el-table
+                :data="tableData"
+                style="width: 100%"
+                :row-class-name="tableRowClassName"
+                @selection-change="handleSelectionChange">
+            <el-table-column
+                    type="selection"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    type="index"
+                    width="50">
+            </el-table-column>
+
+            <el-table-column
+                    prop="brandName"
+                    label="The brand name"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="description"
+                    label="description"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="companyName"
+                    label="Brand introduction"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="ordered"
+                    align="center"
+                    label="price">
+            </el-table-column>
+            <el-table-column
+                    prop="status"
+                    align="center"
+                    label="The current">
+            </el-table-column>
+
+            <el-table-column
+                    align="center"
+                    label="option">
+
+                <template slot-scope="scope">
+
+                    <el-button type="primary" @click="addToCart(scope.row)"
+                               @selection-change="handleSelectionChange"
+                    >add to cart</el-button>
+                </template>
+
+            </el-table-column>
+
+        </el-table>
+    </template>
+
+    <!--分页工具条-->
+    <!--    <el-pagination-->
+    <!--            @size-change="handleSizeChange"-->
+    <!--            @current-change="handleCurrentChange"-->
+    <!--            :current-page="currentPage"-->
+    <!--            :page-sizes="[5, 10, 15, 20]"-->
+    <!--            :page-size="5"-->
+    <!--            layout="total, sizes, prev, pager, next, jumper"-->
+    <!--            :total="400">-->
+    <!--    </el-pagination>-->
+
+</div>
+
+
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script src="js/axios-0.18.0.js"></script>
+
+<script>
+    new Vue({
+        el: "#app",
+
+        mounted(){
+            //当页面加载完成后，发送异步请求，获取数据
+            this.selectAll();
+            /* var _this = this;
+
+             axios({
+                 method:"get",
+                 url:"http://localhost:8080/asd/selectAllServlet"
+             }).then(function (resp) {
+                 _this.tableData = resp.data;
+             })*/
+
+        },
+
+        methods: {
+            tomenu(){
+
+                window.history.pushState(null, null, "./menuName.html");
+            },
+            tocart(){
+                window.history.pushState(null, null, "./cart.html");
+            },
+            addToCart(itme){
+                console.log(itme)
+                console.log("add to Cart")
+                {
+                    //console.log(this.brand);
+                    var _this = this;
+                    _this.brand1.brandName=itme.brandName
+                    _this.brand1.companyName=itme.companyName
+                    _this.brand1.ordered=itme.ordered
+                    _this.brand1.status=itme.status
+                    console.log(_this.brand1)
+                    // 发送ajax请求，添加数据
+                    axios({
+                        method:"post",
+                        url:"./addCartServlet",
+                        data:_this.brand1
+                    }).then(function (resp) {
+                        if(resp.data == "success"){
+                            //添加成功
+
+                            //关闭窗口
+                            _this.dialogVisible = false;
+
+                            // 重新查询数据
+                            _this.selectAll();
+                            // 弹出消息提示
+                            _this.$message({
+                                message: 'success',
+                                type: 'success'
+                            });
+
+                        }
+                    })
+
+
+                }
+
+            },
+            // 查询所有数据
+            selectAll(){
+                var _this = this;
+
+                axios({
+                    method:"get",
+                    url:"./selectAllServlet"
+
+                }).then(function (resp) {
+                    _this.tableData = resp.data;
+                })
+            },
+
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 1) {
+                    return 'warning-row';
+                } else if (rowIndex === 3) {
+                    return 'success-row';
+                }
+                return '';
+            },
+            // 复选框选中后执行的方法
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+
+                console.log(this.multipleSelection)
+            },
+            // 查询方法
+            onSubmit() {
+                console.log(this.brand);
+            },
+            // 添加数据
+            addBrand() {
+                //console.log(this.brand);
+                var _this = this;
+                // 发送ajax请求，添加数据
+                axios({
+                    method:"post",
+                    url:"./addServlet",
+                    data:_this.brand
+                }).then(function (resp) {
+                    if(resp.data == "success"){
+                        //添加成功
+
+                        //关闭窗口
+                        _this.dialogVisible = false;
+
+                        // 重新查询数据
+                        _this.selectAll();
+                        // 弹出消息提示
+                        _this.$message({
+                            message: 'success',
+                            type: 'success'
+                        });
+
+                    }
+                })
+
+
+            },
+
+            //分页
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            }
+
+        },
+        data() {
+            return {
+                // 当前页码
+                currentPage: 1,
+                // 添加数据对话框是否展示的标记
+                dialogVisible: false,
+
+                // 品牌模型数据
+                brand: {
+                    status: '',
+                    brandName: '',
+                    companyName: '',
+                    id: "",
+                    ordered: "",
+                    description: ""
+                },
+
+                brand1: {
+                    status: '',
+                    brandName: '',
+                    companyName: '',
+                    uid: "1",
+                    ordered: "",
+                    description: ""
+                },
+                // 复选框选中数据集合
+                multipleSelection: [],
+                // 表格数据
+                tableData: []
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>
