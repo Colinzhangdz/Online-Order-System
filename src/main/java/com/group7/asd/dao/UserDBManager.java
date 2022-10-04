@@ -18,9 +18,7 @@ public class UserDBManager {
         st = conn.createStatement();
     }
 
-    public UserDBManager() {
-//constructor
-    }
+
 
     //validate user from database
     public int validateUser(String username, String password) throws SQLException {
@@ -76,5 +74,6 @@ public class UserDBManager {
         rst.close();
         return user;
     }
+
 
 }

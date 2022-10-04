@@ -33,6 +33,7 @@ public class AddLogoutUserLogServlet extends HttpServlet {
 
     private Connection conn;
 
+
     @Override //Create and instance of DBConnector for the deployment session
     public void init() {
         try {
