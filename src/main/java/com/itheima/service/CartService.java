@@ -10,6 +10,6 @@ public interface CartService {
 
     void add(Cart cart);
     //void delete(Integer id);
-    void delete(String brandName);
+    void delete(Integer id);
 
 }

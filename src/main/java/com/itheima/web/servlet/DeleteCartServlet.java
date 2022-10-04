@@ -17,7 +17,7 @@ public class DeleteCartServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String brandName = request.getParameter("brandName");
+        int id = Integer.parseInt(request.getParameter("id"));
 
         //Integer id = Integer.valueOf(request.getParameter("id"));
         //System.out.println(id);
@@ -28,8 +28,8 @@ public class DeleteCartServlet extends HttpServlet {
         //转为Cart对象
 
         //2. 调用service添加
+        cartService.delete(id);
         //cartService.delete(id);
-        cartService.delete(brandName);
 
         //3. 响应成功的标识
         response.getWriter().write("success");
