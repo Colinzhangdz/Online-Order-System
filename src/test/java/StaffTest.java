@@ -1,8 +1,12 @@
 import com.group7.asd.dao.Database;
+import com.group7.asd.dao.UserDBManager;
 import com.group7.asd.model.Staff;
+import com.group7.asd.model.User;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // Test add staff
 public class StaffTest {
@@ -20,5 +24,4 @@ public class StaffTest {
         Assertions.assertEquals(1, staffs2.size() - staffs.size());
 
     }
-
 }

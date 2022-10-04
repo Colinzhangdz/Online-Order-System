@@ -12,6 +12,7 @@
             background: #f5f7fa;
         }
     </style>
+    <link rel="stylesheet" href="css/mystyle.css">
 </head>
 <body>
 <a href="profile.jsp" > <input type="button" value="Profile page" ></a>
@@ -21,9 +22,11 @@
 
 <h1>Checklist</h1>
 <div id="app">
+    <! -- Save button -->
     <div style="float: right;margin-bottom: 10px;">
         <el-button type="success" @click="save">Save</el-button>
     </div>
+    <! -- checklist form -->
     <template>
         <el-table
                 :data="tableData"
@@ -84,15 +87,17 @@
             }
         },
         methods: {
-            queryChecks(){
+            queryChecks(){ // Query the data
                 this.loading = true;
                 this.actionType = 'query';
+                // fetch checklist data remotely
                 axios.get("CheckServlet", {
                         params: {
                             actionType:this.actionType
                         }
                     }
                 ).then(re => {
+                    // Render to the form
                     this.tableData = re.data.tableData;
                     this.loading = false;
                 })
@@ -101,7 +106,9 @@
                 this.actionType = 'save';
                 this.loading = true;
                 let formData = new FormData();
+                // convert the data to json format for submission
                 formData.append('tableData', JSON.stringify(this.tableData));
+                // Execute the save request
                 axios({
                     method: "post",
                     url: "CheckServlet",
