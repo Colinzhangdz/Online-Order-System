@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class UserDBManager {
@@ -55,6 +57,11 @@ public class UserDBManager {
         st.executeUpdate("INSERT INTO USERS(EMAIL, PASSWORD, FULLNAME, PHONE, USERTYPE) VALUES('" + user.getEmail() + "','" + user.getPassword() + "','" + user.getFullName() + "','" + user.getPhone() + "','" + user.getUserType() + "')");
     }
 
+
+    public void addUser1(User user) throws SQLException {
+        st.executeUpdate("INSERT INTO USERS(USERID, EMAIL, PASSWORD, FULLNAME, PHONE, USERTYPE) VALUES('" + user.getUserId() + "','" + user.getEmail() + "','" + user.getPassword() + "','" + user.getFullName() + "','" + user.getPhone() + "','" + user.getUserType() + "')");
+    }
+
 //update user in database
     public void updateUser(User user) throws SQLException {
         st.executeUpdate("UPDATE USERS SET PASSWORD ='" + user.getPassword() + "',FULLNAME ='" + user.getFullName() + "',PHONE ='" + user.getPhone() + "' WHERE EMAIL ='" + user.getEmail()+"'");
@@ -62,7 +69,7 @@ public class UserDBManager {
 //delete user in database
 
     public void deleteUser(int id) throws SQLException {
-        st.executeUpdate("UPDATE USERS SET ISACTIVE=FALSE WHERE USERID =" + id);
+        st.executeUpdate("DELETE FROM USERS WHERE USERID =" + id);
     }
 
     public User findUser(String username, String password) throws SQLException {
@@ -75,5 +82,43 @@ public class UserDBManager {
         return user;
     }
 
+
+    public User findUser1(int id) throws SQLException {
+        User user = null;
+
+        ResultSet rst = st.executeQuery("SELECT * FROM USERS WHERE USERID=" + id);
+        if (rst.next()) {
+        user = new User(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6), rst.getBoolean(7));
+        }
+
+        rst.close();
+        return user;
+    }
+
+
+    public User findUser2(int id) throws SQLException {
+        //User user = null;
+        User user = new User();
+        //ResultSet rs = st.executeQuery("SELECT * FROM USERS WHERE USERID=" + id);
+        //if (rst.next()) {
+            //user = new User(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6), rst.getBoolean(7));
+        //}
+
+        String sql = "SELECT * FROM USERS WHERE USERID=" + id;
+
+        ResultSet rs = st.executeQuery(sql);
+        while(rs.next()){
+            user.setUserId(Integer.parseInt(rs.getString("userid")));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setFullName(rs.getString("fullname"));
+            user.setPhone(rs.getString("phone"));
+            user.setUserType(rs.getString("usertype"));
+            user.setIsActive(rs.getBoolean("isactive"));
+        }
+
+        rs.close();
+        return user;
+    }
 
 }

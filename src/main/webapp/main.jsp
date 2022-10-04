@@ -24,9 +24,9 @@
 <a href="check.html" > <input type="button" value="Checklist" ></a>
 
 <% if (type.equals("STAFF")) { %>
-<jsp:include page="main1.jsp" flush="true" />
+<jsp:include page="staffMain.jsp" flush="true" />
 <% } else { %>
-<jsp:include page="main2.jsp" flush="true" />
+<jsp:include page="customerMain.jsp" flush="true" />
 <% } %>
 
 

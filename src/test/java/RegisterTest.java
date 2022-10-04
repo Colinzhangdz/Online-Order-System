@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RegisterTest {
     private DBConnector db = new DBConnector();
@@ -306,7 +305,7 @@ public class RegisterTest {
     public void testUser1() throws Exception{
 
         User user = new User();
-        //user.setUserId(6666);
+        user.setUserId(6666);
         user.setEmail("7777@uts.com");
         user.setPassword("1234");
         user.setFullName("Test User");
@@ -315,20 +314,20 @@ public class RegisterTest {
         //user.setIsActive(true);
         conn = db.openConnection();
         UserDBManager userDBManager = new UserDBManager(conn);
-        userDBManager.addUser(user);
+        userDBManager.addUser1(user);
 
 
-        //User userTest = userDBManager.findUser("Test User", "1234");
-        //assertEquals(1234567890, userTest.getPhone());
+        User userTest = userDBManager.findUser2(6666);
+        assertEquals(6666, userTest.getUserId());
     }
     @Test
     public void testUser2() throws Exception{
         conn = db.openConnection();
         UserDBManager userDBManager = new UserDBManager(conn);
-        userDBManager.deleteUser(10);
+        userDBManager.deleteUser(6666);
 
-        //User userTest = userDBManager.findUser("Test User", "1234");
-        //assertNull(userTest.getPhone());
+        User userTest = userDBManager.findUser2(6666);
+        assertEquals(0, userTest.getUserId());
     }
 
 }

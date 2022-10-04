@@ -13,6 +13,9 @@
 <body>
 <h1>staff</h1>
 <button>    <a href="Menu.html">menu</a></button>
+<br>
+<br>
+<button>    <a href="supplierList.html">Supplier Order List</a></button>
 
 </body>
 </html>
