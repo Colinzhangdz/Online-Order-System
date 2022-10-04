@@ -8,11 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
+    <link rel="stylesheet" href="css/mystyle.css">
     <title>Title</title>
 </head>
 <body>
 <h1>staff</h1>
-<button>    <a href="Menu.html">menu</a></button>
+<button >    <a href="Menu.html">menu</a></button>
 <br>
 <br>
 <button>    <a href="supplierMenu.html">Supplier Order List</a></button>

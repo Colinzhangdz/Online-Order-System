@@ -10,14 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/DeleteCartServlet")
+@WebServlet("/deleteCartServlet")
 public class DeleteCartServlet extends HttpServlet {
 
     private CartService cartService = new CartServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer id = Integer.valueOf(request.getParameter("id"));
+        String brandName = request.getParameter("brandName");
+
+        //Integer id = Integer.valueOf(request.getParameter("id"));
         //System.out.println(id);
 //        BufferedReader br = request.getReader();
 //        String params = br.readLine();//json字符串
@@ -26,7 +28,8 @@ public class DeleteCartServlet extends HttpServlet {
         //转为Cart对象
 
         //2. 调用service添加
-        cartService.delete(id);
+        //cartService.delete(id);
+        cartService.delete(brandName);
 
         //3. 响应成功的标识
         response.getWriter().write("success");

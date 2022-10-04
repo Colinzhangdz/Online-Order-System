@@ -25,6 +25,7 @@ public interface CartMapper {
     @Insert("insert into tb_cart values(#{id},#{uid},#{brandName},#{companyName},#{ordered},#{description},#{status})")
     void add(Cart cart);
 
-    @Delete("delete from tb_cart where id = #{id}")
-    void delete(Integer id);
+    @Delete("delete from tb_cart where brand_name = #{brandName}")
+    //void delete(Integer id);
+    void delete(String brandName);
 }

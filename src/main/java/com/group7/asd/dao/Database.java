@@ -4,6 +4,7 @@ import com.group7.asd.model.Check;
 import com.group7.asd.model.Customer;
 import com.group7.asd.model.Product;
 import com.group7.asd.model.Staff;
+import com.itheima.pojo.Cart;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -298,6 +299,8 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+
 
 
     public int addCheck(Check check) {

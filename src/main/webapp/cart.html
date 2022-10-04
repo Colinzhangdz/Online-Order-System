@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="css/mystyle.css">
 		<meta charset="utf-8">
 		<title>Shopping Cart</title>
 		<link rel="stylesheet" href="./css/common.css">
@@ -72,6 +73,7 @@
                                             <span @click="">choose all</span>
                                         </label>
 										<a href="#" id="cart-delete" @click="del()">delete</a>
+
 									</td>
 									<td colspan="3">
 										<span>Total：</span>
@@ -102,9 +104,9 @@
 					{
 						'pro_name': 'rice',//产品名称
 						'pro_purity': 'china',// 地区
-						'pro_service': "Delicious rice",//描述
-						'pro_num': 1,//数量
-						'pro_price': 1,//单价
+						'pro_service': "chinarice",//描述
+						'pro_num':1,//数量
+						'pro_price':1,//单价
 						'select': true //选中状态
 					}
 				]
@@ -151,10 +153,10 @@
 						console.log(_this.productList)
 						for (let i = 0; i < resp.data.length; i++) {
 							var tep={
-								'id': resp.data[i].id,//产品id
+
 								'pro_name': resp.data[i].brandName,//产品名称
 										'pro_num': resp.data[1].status,//数量
-										'pro_purity':resp.data[1].companyName,
+									'pro_purity':resp.data[1].companyName,
 										'pro_service':resp.data[1].description,
 										// 'pro_img': 'img/1.jpg',//图片链接
 										'pro_price': resp.data[i].ordered,//单价,
@@ -173,6 +175,10 @@
                 window.alert("You sure you want to delete it1?")
                 console.log("helllo")
                 },
+				//new
+
+
+				//new
 
 				del:function(){
 					if(confirm("You sure you want to delete it?")){
@@ -184,16 +190,16 @@
 						}
 						this.productList=newArr;
 					}
-					let aa=document.getElementById("good-id")
+					let aa=document.getElementsByName("good-id")
 					console.log(aa)
 					for (let i = 0; i < aa.length; i++) {
 						if (aa[i].checked==true){
-							console.log(aa[i]._value.id)
+							console.log(aa[i]._value.pro_name)
 							axios({
 								method:"get",
 								// url:"http://localhost:8080/asd/selectAllServlet"
 								// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
-								url:"./DeleteCartServlet?id="+aa[i]._value.id
+								url:"./deleteCartServlet?branName="+aa[i]._value.pro_name
 							}).then(function (resp) {
 								console.log(resp.data)
 							})
