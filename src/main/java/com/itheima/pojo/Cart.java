@@ -2,6 +2,7 @@ package com.itheima.pojo;
 
 public class Cart {
     // id 主键
+    private  Integer id;
     private Integer uid;
     private String brandName;
     private String companyName;
@@ -65,10 +66,19 @@ public class Cart {
         this.status = status;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Brand{" +
-                "id=" + uid +
+                "id" + id +
+                "uid=" + uid +
                 ", brandName='" + brandName + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", ordered=" + ordered +

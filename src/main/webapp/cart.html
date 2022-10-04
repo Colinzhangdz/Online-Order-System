@@ -69,14 +69,14 @@
 									<td colspan="2">
 										<label>
                                             <input type="checkbox" name="all" v-model="isSelectAll">
-                                            <span @click="">全选</span>
+                                            <span @click="">choose all</span>
                                         </label>
-										<a href="#" id="cart-delete" @click="del()">删除</a>
+										<a href="#" id="cart-delete" @click="del()">delete</a>
 									</td>
 									<td colspan="3">
-										<span>合计：</span>
+										<span>Total：</span>
 										<strong id="total-amount">￥<em id="total-amount-em">{{getTotal}}</em></strong>
-										<input type="submit" @click="submit"value="立即结算" id="settlement">
+										<input type="submit" @click="submit"value="pay" id="settlement">
 									</td>
 								</tr>
 							</tfoot>
@@ -84,7 +84,7 @@
 						</table>
 					</form>
 					<div v-show="productList.length===0">
-						购物车还是空的哦~快来购物吧~
+						The shopping cart is still empty~ Come and shop~
 					</div>
 				</div>
 			</div>
@@ -151,6 +151,7 @@
 						console.log(_this.productList)
 						for (let i = 0; i < resp.data.length; i++) {
 							var tep={
+								'id': resp.data[i].id,//产品id
 								'pro_name': resp.data[i].brandName,//产品名称
 										'pro_num': resp.data[1].status,//数量
 										'pro_purity':resp.data[1].companyName,
@@ -169,12 +170,12 @@
 
 
                 submit(){
-                window.alert("确认删除吗？")
+                window.alert("You sure you want to delete it?")
                 console.log("helllo")
                 },
 
 				del:function(){
-					if(confirm("确定要删除吗")){
+					if(confirm("You sure you want to delete it?")){
 						var newArr=[];
 						for(var i=0;i<this.productList.length;i++){
 							if(this.productList[i].select===false){
@@ -182,6 +183,23 @@
 							}
 						}
 						this.productList=newArr;
+					}
+					let aa=document.getElementsByName("good-id")
+					console.log(aa)
+					for (let i = 0; i < aa.length; i++) {
+						if (aa[i].checked==true){
+							//console.log(aa[i]._value.id)
+							axios({
+								method:"get",
+								// url:"http://localhost:8080/asd/selectAllServlet"
+								// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
+								url:".deleteCartServlet?id="//+aa[i]._value.id
+							}).then(function (resp) {
+								console.log(resp.data)
+							})
+
+						}
+
 					}
 				}
 			}

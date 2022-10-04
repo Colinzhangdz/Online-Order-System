@@ -40,4 +40,19 @@ public class CartServiceImpl implements CartService {
         //5. 释放资源
         sqlSession.close();
     }
+
+    @Override
+    public void delete(Integer id) {
+        //2. 获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+        //3. 获取BrandMapper
+        CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+
+        //4. 调用方法
+        mapper.delete(id);
+        sqlSession.commit();//提交事务
+
+        //5. 释放资源
+        sqlSession.close();
+    }
 }
