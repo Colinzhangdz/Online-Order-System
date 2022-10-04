@@ -57,4 +57,5 @@ public class Product {
     public void setStatus(int status) {
         this.status = status;
     }
+
 }

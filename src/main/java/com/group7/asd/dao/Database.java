@@ -24,7 +24,7 @@ public class Database {
 
     private Connection getConnection() throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -179,7 +179,32 @@ public class Database {
             e.printStackTrace();
         }
     }
+    public Product getProductsById(Integer id){
+        Product product = new Product();
+        try (Connection conn = getConnection()) {
 
+            String sql = "SELECT * FROM tb_brand WHERE id = '"+id+"';";
+            PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+
+                product.setId(Integer.parseInt(rs.getString("id")));
+                product.setBrand_name(rs.getString("brand_name"));
+                product.setCompany_name(rs.getString("company_name"));
+                product.setOrdered(Integer.parseInt(rs.getString("ordered")));
+                product.setDescription(rs.getString("description"));
+                product.setStatus(Integer.parseInt(rs.getString("status")));
+
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return product;
+
+    }
     public ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<Product>();
         try (Connection conn = getConnection()) {
@@ -210,6 +235,25 @@ public class Database {
             String sql = "insert into tb_brand (brand_name, company_name,ordered, description, status) values (?,?,?,?,?)";
             PreparedStatement st = conn.prepareStatement(sql);
             int i = 1;
+            st.setString(i++, product.getBrand_name());
+            st.setString(i++, product.getCompany_name());
+            st.setString(i++, String.valueOf(product.getOrdered()));
+            st.setString(i++, product.getDescription());
+            st.setString(i++, String.valueOf(product.getStatus()));
+
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+    public void addProductTest(Product product) {
+        try (Connection conn = getConnection()) {
+            String sql = "insert into tb_brand (id, brand_name, company_name,ordered, description, status) values (?,?,?,?,?,?)";
+            PreparedStatement st = conn.prepareStatement(sql);
+            int i = 1;
+            st.setString(i++, String.valueOf(product.getId()));
             st.setString(i++, product.getBrand_name());
             st.setString(i++, product.getCompany_name());
             st.setString(i++, String.valueOf(product.getOrdered()));

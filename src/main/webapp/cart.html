@@ -92,8 +92,8 @@
 	</body>
 	<script src="element-ui/lib/index.js"></script>
 	<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
-	<script src="js/vue.js"></script>
-	<script src="js/axios-0.18.0.js"></script>
+	//<script src="js/vue.js"></script>
+	//<script src="js/axios-0.18.0.js"></script>
 	<script type="text/javascript">
 		new Vue({
 			el:"#cart",
@@ -170,7 +170,7 @@
 
 
                 submit(){
-                window.alert("You sure you want to delete it?")
+                window.alert("You sure you want to delete it1?")
                 console.log("helllo")
                 },
 
@@ -184,16 +184,16 @@
 						}
 						this.productList=newArr;
 					}
-					let aa=document.getElementsByName("good-id")
+					let aa=document.getElementById("good-id")
 					console.log(aa)
 					for (let i = 0; i < aa.length; i++) {
 						if (aa[i].checked==true){
-							//console.log(aa[i]._value.id)
+							console.log(aa[i]._value.id)
 							axios({
 								method:"get",
 								// url:"http://localhost:8080/asd/selectAllServlet"
 								// 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
-								url:".deleteCartServlet?id="//+aa[i]._value.id
+								url:"./DeleteCartServlet?id="+aa[i]._value.id
 							}).then(function (resp) {
 								console.log(resp.data)
 							})
