@@ -15,7 +15,7 @@
 <button>    <a href="Menu.html">menu</a></button>
 <br>
 <br>
-<button>    <a href="supplierList.html">Supplier Order List</a></button>
+<button>    <a href="supplierMenu.html">Supplier Order List</a></button>
 
 </body>
 </html>
