@@ -1,6 +1,7 @@
 
 package com.group7.asd.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import com.group7.asd.model.User;
 
 import java.sql.Connection;
@@ -82,6 +83,13 @@ public class UserDBManager {
         return user;
     }
 
+    public void saveOrder(String orderNo,Double totalMoney,String userId) throws SQLException {
+        st.executeUpdate("INSERT INTO order_information(order_no, totalMoney, user_id) VALUES('" + orderNo + "','" + totalMoney + "','" + userId  + "')");
+    }
+
+    public void saveOrderDetail(JSONObject jsonObject, String orderNo) throws SQLException {
+        st.executeUpdate("INSERT INTO order_detail(order_no, product_name, price) VALUES('" + orderNo + "','" + jsonObject.getString("pro_name") + "','" + jsonObject.getString("pro_price") + "')");
+    }
 
     public User findUser1(int id) throws SQLException {
         User user = null;
