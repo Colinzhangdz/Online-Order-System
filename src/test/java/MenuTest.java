@@ -1,6 +1,8 @@
 import com.group7.asd.dao.Database;
 import com.group7.asd.model.Product;
 import org.junit.jupiter.api.*;
+import org.junit.Test;
+
 
 import java.util.ArrayList;
 
@@ -22,8 +24,8 @@ public class MenuTest {
 
 
     }
-    @Test
-    public void testUpdateProduct() {
+    //@Test
+    /*public void testUpdateProduct() {
         ArrayList<Product> products = Database.instance().getProducts();
         Product product = new Product();
 
@@ -39,12 +41,12 @@ public class MenuTest {
         Assertions.assertEquals(1009, product1.getOrdered());
 
 
-    }
+    }*/
 
     @Test
     public void DeleteProduct() {
         ArrayList<Product> products = Database.instance().getProducts();
-        Product product = new Product();
+        //Product product = new Product();
 
         Database.instance().deleteProduct(999);
         ArrayList<Product> products1 = Database.instance().getProducts();
