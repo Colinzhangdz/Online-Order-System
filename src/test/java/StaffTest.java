@@ -1,13 +1,13 @@
 import com.group7.asd.dao.Database;
-import com.group7.asd.dao.UserDBManager;
+//import com.group7.asd.dao.UserDBManager;
 import com.group7.asd.model.Staff;
-import com.group7.asd.model.User;
+//import com.group7.asd.model.User;
 
 import org.junit.jupiter.api.*;
-
+import org.junit.Test;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StaffTest {
     @Test
