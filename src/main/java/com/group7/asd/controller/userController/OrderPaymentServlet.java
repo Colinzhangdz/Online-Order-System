@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.group7.asd.dao.DBConnector;
 import com.group7.asd.dao.UserDBManager;
+import com.group7.asd.model.User;
 import com.group7.asd.utils.ResponseUtil;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "OrderPaymentServlet", urlPatterns = {"/saveOrder"})
 public class OrderPaymentServlet extends HttpServlet{
@@ -68,7 +70,12 @@ public class OrderPaymentServlet extends HttpServlet{
 			JSONObject object = (JSONObject) jsonArray.get(i);
 			manager.saveOrderDetail(object,orderNo);
 		}
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
 		String userId = "";
+		if(user != null) {
+			userId = user.getUserId() + "";
+		}
 		Double money = Double.parseDouble(totalMoney);
 		manager.saveOrder(orderNo,money,userId);
 		boolean delFlag = true;
