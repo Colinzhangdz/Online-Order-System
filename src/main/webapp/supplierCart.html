@@ -89,7 +89,7 @@
         </table>
       </form>
       <div v-show="productList.length===0">
-        The shopping cart is still empty~ Come and shop~
+        There is no item selected in the Supllier Order.
       </div>
     </div>
   </div>
@@ -162,8 +162,7 @@
         axios({
           method:"get",
           // url:"http://localhost:8080/asd/selectAllServlet"
-          // 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
-          url:"./cartServlet?uid=1"
+          url:"./supcartServlet?uid=1"
         }).then(function (resp) {
           console.log(resp.data)
           console.log(_this.productList)
@@ -189,7 +188,7 @@
 
 
       submit(){
-        window.alert("You sure you want to delete it1?")
+        window.alert("You sure you want to delete it?")
         console.log("helllo")
       },
       //new
@@ -215,8 +214,7 @@
             axios({
               method:"get",
               // url:"http://localhost:8080/asd/selectAllServlet"
-              // 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
-              url:"./deleteCartServlet?id="+aa[i].getAttribute("evalue")
+              url:"./supdeleteCartServlet?id="+aa[i].getAttribute("evalue")
             }).then(function (resp) {
               console.log(resp.data)
             })

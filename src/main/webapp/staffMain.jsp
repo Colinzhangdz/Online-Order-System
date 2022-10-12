@@ -10,7 +10,7 @@
 <head>
 
     <link rel="stylesheet" href="css/mystyle.css">
-    <title>Title</title>
+    <title>Staff Profile</title>
 </head>
 <body>
 <h1>staff</h1>

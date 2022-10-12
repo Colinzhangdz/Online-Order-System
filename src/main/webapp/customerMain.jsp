@@ -9,11 +9,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/mystyle.css">
-    <title>Title</title>
+    <title>Customer Profile</title>
 </head>
 <body>
 <h1>
-    custoemr
+    customer
 </h1>
 <button>    <a href="menuName.html">menu</a></button>
 </body>

@@ -72,9 +72,9 @@
         <button>
             <a href="profile.jsp">Profile</a></button>
         <button>
-            <a href="SupplierMenu.html">Supplier Menu</a></button>
+            <a href="supplierMenu.html">Supplier Menu</a></button>
         <button>
-            <a href="SupplierCart.html">
+            <a href="supplierCart.html">
                 Supplier Cart
             </a>
         </button>
@@ -199,7 +199,7 @@
                     // 发送ajax请求，添加数据
                     axios({
                         method:"post",
-                        url:"./addCartServlet",
+                        url:"./supaddCartServlet",
                         data:_this.brand1
                     }).then(function (resp) {
                         if(resp.data == "success"){
@@ -229,7 +229,7 @@
 
                 axios({
                     method:"get",
-                    url:"./selectAllServlet"
+                    url:"./supselectAllServlet"
 
                 }).then(function (resp) {
                     _this.tableData = resp.data;
@@ -261,7 +261,7 @@
                 // 发送ajax请求，添加数据
                 axios({
                     method:"post",
-                    url:"./addServlet",
+                    url:"./supaddServlet",
                     data:_this.brand
                 }).then(function (resp) {
                     if(resp.data == "success"){
