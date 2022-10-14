@@ -3,6 +3,7 @@ package com.itheima.web.servlet;
 import com.alibaba.fastjson.JSON;
 import com.group7.asd.model.User;
 import com.itheima.pojo.Cart;
+import com.itheima.pojo.SupCart;
 import com.itheima.service.CartService;
 import com.itheima.service.SupCartService;
 import com.itheima.service.impl.CartServiceImpl;
@@ -32,7 +33,7 @@ if(user == null){
 }
         Integer uid = user.getUserId();
         //1. Calling service queries
-        List<Cart> carts = scs.selectAll(Integer.valueOf(uid));
+        List<SupCart> carts = scs.selectAll(Integer.valueOf(uid));
 
 
         //2. Chanage JSON

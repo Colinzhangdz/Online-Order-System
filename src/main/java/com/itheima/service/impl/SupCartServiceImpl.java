@@ -1,26 +1,26 @@
 package com.itheima.service.impl;
 
 import com.itheima.mapper.SupCartMapper;
-import com.itheima.pojo.Cart;
+import com.itheima.pojo.SupCart;
 import com.itheima.service.SupCartService;
-import com.itheima.util.SqlSessionFactoryUtils;
+import com.itheima.util.SupSqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 
 public class SupCartServiceImpl implements SupCartService {
-    SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
+    SqlSessionFactory factory = SupSqlSessionFactoryUtils.getSqlSessionFactory();
 
     @Override
-    public List<Cart> selectAll(Integer uid) {
+    public List<SupCart> selectAll(Integer uid) {
         SqlSession sqlSession = factory.openSession();
         //3. Get BrandMapper
 
         SupCartMapper mapper = sqlSession.getMapper(SupCartMapper.class);
 
         //4. Call
-        List<Cart> carts = mapper.selectAll(uid);
+        List<SupCart> carts = mapper.selectAll(uid);
 
         //5. Close
         sqlSession.close();
@@ -29,7 +29,7 @@ public class SupCartServiceImpl implements SupCartService {
     }
 
     @Override
-    public void add(Cart cart) {
+    public void add(SupCart cart) {
         //2. get SqlSession obj
         SqlSession sqlSession = factory.openSession();
         //3. Get BrandMapper

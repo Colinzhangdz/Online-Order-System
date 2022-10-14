@@ -1,6 +1,6 @@
 package com.itheima.mapper;
 
-import com.itheima.pojo.Cart;
+import com.itheima.pojo.SupCart;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.ResultMap;
@@ -16,15 +16,15 @@ public interface SupCartMapper {
      */
     @Select("select * from sp_cart where uid = #{uid}")
     //@Select("select * from sp_cart")
-    @ResultMap("cartResultMap")
-    List<Cart> selectAll(Integer uid);
+    @ResultMap("supcartResultMap")
+    List<SupCart> selectAll(Integer uid);
 
     /**
      * add Data
      * @param cart
      */
     @Insert("insert into sp_cart values(#{id},#{uid},#{brandName},#{companyName},#{ordered},#{description},#{status})")
-    void add(Cart cart);
+    void add(SupCart cart);
 
     @Delete("delete from sp_cart where id = #{id}")
     //void delete(Integer id);

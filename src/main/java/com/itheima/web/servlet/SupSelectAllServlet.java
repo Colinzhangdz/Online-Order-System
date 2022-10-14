@@ -1,7 +1,8 @@
 package com.itheima.web.servlet;
 
 import com.alibaba.fastjson.JSON;
-import com.itheima.pojo.Brand;
+import com.itheima.pojo.SupBrand;
+
 import com.itheima.service.SupBrandService;
 import com.itheima.service.impl.SupBrandServiceImpl;
 
@@ -21,7 +22,7 @@ public class SupSelectAllServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. Calling service queries
-        List<Brand> brands = supbrandService.selectAll();
+        List<SupBrand> brands = supbrandService.selectAll();
 
         //2.  Chanage JSON
         String jsonString = JSON.toJSONString(brands);

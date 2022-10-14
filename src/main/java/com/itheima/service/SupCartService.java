@@ -1,15 +1,16 @@
 package com.itheima.service;
 
 import com.itheima.pojo.Cart;
+import com.itheima.pojo.SupCart;
 
 import java.util.List;
 
 public interface SupCartService {
 
-    List<Cart> selectAll(Integer userId);
+    List<SupCart> selectAll(Integer userId);
 
 
-    void add(Cart cart);
+    void add(SupCart cart);
     //void delete(Integer id);
     void delete(Integer id);
 

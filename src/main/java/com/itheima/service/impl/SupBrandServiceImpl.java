@@ -2,9 +2,9 @@ package com.itheima.service.impl;
 
 
 import com.itheima.mapper.SupBrandMapper;
-import com.itheima.pojo.Brand;
+import com.itheima.pojo.SupBrand;
 import com.itheima.service.SupBrandService;
-import com.itheima.util.SqlSessionFactoryUtils;
+import com.itheima.util.SupSqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -12,18 +12,18 @@ import java.util.List;
 
 public class SupBrandServiceImpl implements SupBrandService {
     //1. create SqlSessionFactory obj
-    SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
+    SqlSessionFactory factory = SupSqlSessionFactoryUtils.getSqlSessionFactory();
 
 
     @Override
-    public List<Brand> selectAll() {
+    public List<SupBrand> selectAll() {
         //2. get SqlSession
         SqlSession sqlSession = factory.openSession();
         //3. get BrandMapper
         SupBrandMapper mapper = sqlSession.getMapper(SupBrandMapper.class);
 
         //4. call
-        List<Brand> brands = mapper.selectAll();
+        List<SupBrand> brands = mapper.selectAll();
 
         //5. close
         sqlSession.close();
@@ -32,7 +32,7 @@ public class SupBrandServiceImpl implements SupBrandService {
     }
 
     @Override
-    public void add(Brand brand) {
+    public void add(SupBrand brand) {
         //2. get SqlSession obj
         SqlSession sqlSession = factory.openSession();
         //3. get BrandMapper

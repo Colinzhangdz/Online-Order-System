@@ -2,6 +2,7 @@ package com.itheima.web.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.itheima.pojo.Brand;
+import com.itheima.pojo.SupBrand;
 import com.itheima.service.BrandService;
 import com.itheima.service.SupBrandService;
 import com.itheima.service.impl.BrandServiceImpl;
@@ -29,7 +30,7 @@ public class SupAddServlet extends HttpServlet {
         System.out.println(params);
 
         //Convert to Brand object
-        Brand brand = JSON.parseObject(params, Brand.class);
+        SupBrand brand = JSON.parseObject(params, SupBrand.class);
 
         //2. Call service to add
         supbrandService.add(brand);

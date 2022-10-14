@@ -3,6 +3,7 @@ package com.itheima.web.servlet;
 import com.alibaba.fastjson.JSON;
 import com.group7.asd.model.User;
 import com.itheima.pojo.Cart;
+import com.itheima.pojo.SupCart;
 import com.itheima.service.SupCartService;
 import com.itheima.service.impl.SupCartServiceImpl;
 
@@ -34,7 +35,7 @@ public class SupAddCartServlet extends HttpServlet {
             response.getWriter().write("fail");
         }
         //转为Cart对象
-        Cart brand = JSON.parseObject(params, Cart.class);
+        SupCart brand = JSON.parseObject(params, SupCart.class);
         brand.setUid(user.getUserId());
         //2. Call service add
         supcartService.add(brand);
