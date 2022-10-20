@@ -39,23 +39,23 @@
                 style="width: 100%">
             <el-table-column
                     prop="id"
-                    label="id">
+                    label="ID">
             </el-table-column>
             <el-table-column
                     prop="name"
-                    label="name">
+                    label="Name">
             </el-table-column>
             <el-table-column
                     prop="phone"
-                    label="phone">
+                    label="Phone">
             </el-table-column>
             <el-table-column
                     prop="address"
-                    label="address">
+                    label="Address">
             </el-table-column>
             <el-table-column
                     prop="comment"
-                    label="comment">
+                    label="Comment">
             </el-table-column>
         </el-table>
     </template>
@@ -143,6 +143,7 @@
             save(){
                 this.$refs["customerForm"].validate((valid) => {
                     if (valid) {
+                        this.dialogFormVisible = false;
                         this.loading = true;
                         axios.get("CustomerServlet", {
                                 params: {
@@ -152,7 +153,6 @@
                             }
                         ).then(re => {
                             this.loading = false;
-                            this.dialogFormVisible = false;
                             this.queryCustomers();
                             this.$message({
                                 type: 'success',
@@ -168,6 +168,10 @@
                 });
             },
             deleteCustomer(){
+                if(JSON.stringify(this.selectedRow)==="{}") {
+                    this.$message.error('Please select a record!');
+                    return;
+                }
                 this.$confirm('Are you sure to delete?', 'Tips', {
                     confirmButtonText: 'OK',
                     cancelButtonText: 'Cancel',
