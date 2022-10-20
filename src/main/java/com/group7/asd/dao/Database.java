@@ -1,10 +1,6 @@
 package com.group7.asd.dao;
 
-import com.group7.asd.model.Check;
-import com.group7.asd.model.Customer;
-import com.group7.asd.model.Product;
-import com.group7.asd.model.Staff;
-import com.itheima.pojo.Cart;
+import com.group7.asd.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -44,19 +40,20 @@ public class Database {
     public ArrayList<Staff> getStaffs() {
         ArrayList<Staff> staffs = new ArrayList<Staff>();
         try (Connection conn = getConnection()) {
-            String sql = "select id,name, gender, age, phone, username, password from staff ";
+            String sql = "select userid,email, password, fullname, phone, usertype, isactive,manager from users where usertype='STAFF'";
             PreparedStatement st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Staff staff = new Staff();
                 int i = 1;
-                staff.setId(rs.getString(i++));
-                staff.setName(rs.getString(i++));
-                staff.setGender(rs.getString(i++));
-                staff.setAge(rs.getString(i++));
-                staff.setPhone(rs.getString(i++));
-                staff.setUsername(rs.getString(i++));
+                staff.setUserId(rs.getString(i++));
+                staff.setEmail(rs.getString(i++));
                 staff.setPassword(rs.getString(i++));
+                staff.setFullName(rs.getString(i++));
+                staff.setPhone(rs.getString(i++));
+                staff.setUserType(rs.getString(i++));
+                staff.setIsActive(rs.getString(i++));
+                staff.setManager(rs.getString(i++));
                 staffs.add(staff);
             }
             rs.close();
@@ -69,15 +66,16 @@ public class Database {
 
     public int addStaff(Staff staff) {
         try (Connection conn = getConnection()) {
-            String sql = "insert into staff (name, gender, age, phone, username, password) values (?,?,?,?,?,?)";
+            String sql = "insert into users (email, password, fullname, phone, usertype, isactive,manager) values (?,?,?,?,?,?,?)";
             PreparedStatement st = conn.prepareStatement(sql);
             int i = 1;
-            st.setString(i++, staff.getName());
-            st.setString(i++, staff.getGender());
-            st.setString(i++, staff.getAge());
-            st.setString(i++, staff.getPhone());
-            st.setString(i++, staff.getUsername());
+            st.setString(i++, staff.getEmail());
             st.setString(i++, staff.getPassword());
+            st.setString(i++, staff.getFullName());
+            st.setString(i++, staff.getPhone());
+            st.setString(i++, "STAFF");
+            st.setString(i++, "1");
+            st.setString(i++, staff.getManager());
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
@@ -88,16 +86,16 @@ public class Database {
 
     public void editStaff(Staff staff) {
         try (Connection conn = getConnection()) {
-            String sql = "update staff set name=?, gender=?, age=?, phone=?, username=?, password=? where id=?";
+            String sql = "update users set email=?, password=?, fullname=?, phone=?, isactive=?, manager=? where userid=?";
             PreparedStatement st = conn.prepareStatement(sql);
             int i = 1;
-            st.setString(i++, staff.getName());
-            st.setString(i++, staff.getGender());
-            st.setString(i++, staff.getAge());
-            st.setString(i++, staff.getPhone());
-            st.setString(i++, staff.getUsername());
+            st.setString(i++, staff.getEmail());
             st.setString(i++, staff.getPassword());
-            st.setString(i++, staff.getId());
+            st.setString(i++, staff.getFullName());
+            st.setString(i++, staff.getPhone());
+            st.setString(i++, staff.getIsActive());
+            st.setString(i++, staff.getManager());
+            st.setString(i++, staff.getUserId());
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
@@ -107,7 +105,7 @@ public class Database {
 
     public void deleteStaff(String id) {
         try (Connection conn = getConnection()) {
-            String sql = "delete from staff where id=?";
+            String sql = "delete from users where userid=?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setString(1, id);
             st.executeUpdate();
@@ -354,7 +352,7 @@ public class Database {
     public ArrayList<Check> getChecks() {
         ArrayList<Check> checks = new ArrayList<Check>();
         try (Connection conn = getConnection()) {
-            String sql = "select c.id,o.id,o.connectionString, c.gest, c.miss, c.wrong from `ordertest` o left join `checklist` c  on c.order_id=o.id";
+            String sql = "select c.id,o.id,o.brand_name,o.company_name,o.ordered,o.description,o.status, c.gest, c.miss, c.wrong from `sp_brand` o left join `checklist` c  on c.order_id=o.id";
             PreparedStatement st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -362,7 +360,11 @@ public class Database {
                 int i = 1;
                 check.setId(rs.getString(i++));
                 check.setOrderId(rs.getString(i++));
-                check.setConnectionString(rs.getString(i++));
+                check.setBrandName(rs.getString(i++));
+                check.setCompanyName(rs.getString(i++));
+                check.setOrdered(rs.getString(i++));
+                check.setDescription(rs.getString(i++));
+                check.setStatus(rs.getString(i++));
                 check.setGest(rs.getString(i++));
                 check.setMiss(rs.getString(i++));
                 check.setWrong(rs.getString(i++));
@@ -374,5 +376,23 @@ public class Database {
             e.printStackTrace();
         }
         return checks;
+    }
+
+    public String getManager(int userId){
+        String manager = "";
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT manager FROM USERS WHERE USERID=?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1,userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                manager=rs.getString(1);
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return manager;
     }
 }

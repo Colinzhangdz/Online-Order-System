@@ -14,9 +14,8 @@ public class StaffTest {
     public void testAddStaff(){
     ArrayList<Staff> staffs = Database.instance().getStaffs();
     Staff staff = new Staff();
-        staff.setAge("30");
-        staff.setGender("male");
-        staff.setName("Test Name");
+        staff.setUserType("staff");
+        staff.setFullName("Test Name");
         staff.setPassword("1234");
         staff.setPhone("11111111111");
         Database.instance().addStaff(staff);

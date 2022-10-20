@@ -3,6 +3,7 @@ package com.group7.asd.controller;
 import com.alibaba.fastjson.JSON;
 import com.group7.asd.dao.Database;
 import com.group7.asd.model.Staff;
+import com.group7.asd.model.User;
 import org.json.JSONObject;
 
 import javax.servlet.*;
@@ -17,7 +18,7 @@ import java.util.Map;
 @WebServlet(name = "GetStaffsServlet", value = "/StaffsServlet")
 public class StaffsServlet extends HttpServlet {
 
-    @Override
+     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
          Map<String, Object> result = new HashMap<String, Object>();
          String actionType = request.getParameter("actionType");
@@ -43,16 +44,23 @@ public class StaffsServlet extends HttpServlet {
              case "delete":
                  String staffForm = request.getParameter("staffForm");
                  Staff staff = JSON.parseObject(staffForm, Staff.class);
-                 Database.instance().deleteStaff(staff.getId());
+                 Database.instance().deleteStaff(staff.getUserId());
                  result.put("info", "success");
                  request.setCharacterEncoding("UTF-8");
                  response.setContentType("text/html;charset=utf-8");
                  response.getWriter().println(new JSONObject(result).toString());
                  break;
              case "query":
+                 String manager = "0";
+                 HttpSession session = request.getSession();
+                 User user = (User) session.getAttribute("user");
+                 if(user!=null) {
+                     manager = Database.instance().getManager(user.getUserId());
+                 }
                  List<Staff> staffs = new ArrayList<Staff>();
                  try {
                      staffs = Database.instance().getStaffs();
+                     result.put("manager",manager);
                      result.put("tableData", staffs);
                      result.put("info", "success");
                  } catch (Exception e) {

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/mystyle.css">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/mystyle.css">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"/>
@@ -23,7 +24,7 @@
 
 <h1>Staff Management</h1>
 <div id="app">
-    <div style="float: right;margin-bottom: 10px;">
+    <div style="float: right;margin-bottom: 10px;" v-if="manager==1">
         <el-button type="success" @click="addStaff">Add</el-button>
         <el-button type="primary" @click="editStaff">Edit</el-button>
         <el-button type="danger" @click="deleteStaff">Delete</el-button>
@@ -39,59 +40,55 @@
                 @row-click="handleDataRowClick"
                 style="width: 100%">
             <el-table-column
-                    prop="id"
-                    label="id"
+                    prop="userId"
+                    label="UserID"
                     v-if="false">
             </el-table-column>
             <el-table-column
-                    prop="name"
-                    label="name">
-            </el-table-column>
-            <el-table-column
-                    prop="gender"
-                    label="gender">
-            </el-table-column>
-            <el-table-column
-                    prop="age"
-                    label="age">
-            </el-table-column>
-            <el-table-column
-                    prop="phone"
-                    label="phone">
-            </el-table-column>
-            <el-table-column
-                    prop="username"
-                    label="username">
+                    prop="fullName"
+                    label="FullName">
             </el-table-column>
             <el-table-column
                     prop="password"
-                    label="password"
+                    label="Password"
                     v-if="false">
+            </el-table-column>
+            <el-table-column
+                    prop="phone"
+                    label="Phone">
+            </el-table-column>
+            <el-table-column
+                    prop="email"
+                    label="Email">
+            </el-table-column>
+            <el-table-column
+                    prop="manager"
+                    label="Manager">
+                    <template slot-scope="scope">
+                        <i class="el-icon-check" v-if="scope.row.manager==1" style="font-weight: bold;font-size: 16px;"></i>
+                    </template>
             </el-table-column>
         </el-table>
     </template>
     <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" width="40%" :close-on-click-modal="false">
         <el-form :model="staffForm" :rules="rules" ref="staffForm" label-width="100px" class="demo-staffForm">
-            <el-form-item label="name" prop="name">
-                <el-input v-model="staffForm.name"></el-input>
+            <el-form-item label="fullName" prop="fullName">
+                <el-input v-model="staffForm.fullName"></el-input>
             </el-form-item>
-            <el-form-item label="gender" prop="gender">
-                <el-select v-model="staffForm.gender" placeholder="--" style="width: 50%;">
-                    <el-option label="Male" value="male"></el-option>
-                    <el-option label="Female" value="female"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="age" prop="age">
-                <el-input-number v-model="staffForm.age" controls-position="right" :min="1" style="width: 50%;"></el-input-number>
+            <el-form-item label="password" prop="password">
+                <el-input type="password" v-model="staffForm.password" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="phone" prop="phone">
                 <el-input v-model="staffForm.phone"></el-input>
             </el-form-item>
-            <el-form-item label="username" prop="username">
-                <el-input v-model="staffForm.username"></el-input>
+            <el-form-item label="email" prop="email">
+                <el-input v-model="staffForm.email"></el-input>
             </el-form-item>
-            <el-form-item label="password" prop="password">
-                <el-input type="password" v-model="staffForm.password" autocomplete="off"></el-input>
+            <el-form-item label="manager" prop="manager">
+                <el-radio-group v-model="staffForm.manager">
+                    <el-radio label="1">YES</el-radio>
+                    <el-radio label="0">NO</el-radio>
+                </el-radio-group>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -110,29 +107,27 @@
                 actionType:'',
                 dialogFormVisible:false,
                 rules:{
-                    name: [
+                    fullName: [
                         {required: true, message: 'Cannot be empty!', trigger: 'change'}],
-                    gender: [
-                        {required: true, message: 'Cannot be empty!', trigger: 'change'}],
-                    age: [
+                    password: [
                         {required: true, message: 'Cannot be empty!', trigger: 'change'}],
                     phone: [
                         {required: true, message: 'Cannot be empty!', trigger: 'change'}],
-                    username: [
+                    email: [
                         {required: true, message: 'Cannot be empty!', trigger: 'change'}],
-                    password: [
+                    manager: [
                         {required: true, message: 'Cannot be empty!', trigger: 'change'}]
                 },
                 staffForm:{
-                    id:'',
-                    name:'',
-                    gender:'',
-                    age:'',
+                    userId:'',
+                    fullName:'',
+                    password:'',
                     phone:'',
-                    username:'',
-                    password:''
+                    email:'',
+                    manager:''
                 },
-                tableData: []
+                tableData: [],
+                manager:0
             }
         },
         methods: {
@@ -145,6 +140,7 @@
                         }
                     }
                 ).then(re => {
+                    this.manager = re.data.manager;
                     this.tableData = re.data.tableData;
                     this.selectedRow={};
                     this.loading = false;
@@ -157,6 +153,14 @@
                 if(this.$refs["staffForm"]!=undefined) {
                     this.$refs["staffForm"].resetFields();
                 }
+                this.staffForm={
+                    userId:'',
+                        fullName:'',
+                        password:'',
+                        phone:'',
+                        email:'',
+                        manager:''
+                    }
             },
             editStaff(){
                 this.dialogTitle = 'Edit Staff';
@@ -174,6 +178,7 @@
                 this.$refs["staffForm"].validate((valid) => {
                         if (valid) {
                             // verify that the save operation is performed, actionType is defined in addStaff() or editStaff()
+                            this.dialogFormVisible = false;
                             this.loading = true;
                             axios.get("StaffsServlet", {
                                     params: {
@@ -183,7 +188,6 @@
                                 }
                             ).then(re => {
                                 this.loading = false;
-                                this.dialogFormVisible = false;
                                 this.queryStaffs();
                                 this.$message({
                                     type: 'success',
@@ -199,6 +203,11 @@
                 });
             },
             deleteStaff(){
+                // Verify that the data to be deleted
+                if(JSON.stringify(this.selectedRow)==="{}") {
+                    this.$message.error('Please select a record!');
+                    return;
+                }
                 // Delete the data and make a pop-up window to confirm the reminder
                 this.$confirm('Are you sure to delete?', 'Tips', {
                     confirmButtonText: 'OK',
@@ -216,7 +225,6 @@
                         }
                     ).then(re => {
                         this.loading = false;
-                        this.dialogFormVisible = false;
                         this.queryStaffs();
                         this.$message({
                             type: 'success',

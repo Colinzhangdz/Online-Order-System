@@ -1,44 +1,45 @@
 package com.group7.asd.model;
 
 public class Staff {
-    private String id;
-    private String name;
-    private String gender;
-    private String age;
-    private String phone;
-    private String username;
+    private String userId;
+    private String fullName;
     private String password;
+    private String phone;
+    private String email;
+    private String userType;
+    private String isActive;
+    private String manager;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getGender() {
-        return gender;
+    public String getPassword() {
+        return password;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getAge() {
-        return age;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
@@ -49,19 +50,27 @@ public class Staff {
         this.phone = phone;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
-    public String getPassword() {
-        return password;
+    public String getIsActive() {
+        return isActive;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 }
