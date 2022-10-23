@@ -96,42 +96,42 @@
 
             <el-table-column
                     prop="brandName"
-                    label="The brand name"
-                    align="center"
+                    label="Item Description"
+                    align="left"
             >
             </el-table-column>
             <el-table-column
                     prop="description"
-                    label="description"
-                    align="center"
+                    label="Brand"
+                    align="left"
             >
             </el-table-column>
             <el-table-column
                     prop="companyName"
-                    label="Brand introduction"
-                    align="center"
+                    label="Category"
+                    align="left"
             >
             </el-table-column>
             <el-table-column
                     prop="ordered"
-                    align="center"
-                    label="price">
+                    align="left"
+                    label="Price">
             </el-table-column>
             <el-table-column
                     prop="status"
-                    align="center"
-                    label="The current">
+                    align="left"
+                    label="Quality">
             </el-table-column>
 
             <el-table-column
-                    align="center"
-                    label="option">
+                    align="left"
+                    label="Add Item">
 
                 <template slot-scope="scope">
 
                     <el-button type="primary" @click="addToCart(scope.row)"
                                @selection-change="handleSelectionChange"
-                    >add to cart</el-button>
+                    >Add Item</el-button>
                 </template>
 
             </el-table-column>

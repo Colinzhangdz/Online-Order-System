@@ -19,18 +19,9 @@ public class SupDeleteCartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
 
-        //Integer id = Integer.valueOf(request.getParameter("id"));
-        //System.out.println(id);
-//        BufferedReader br = request.getReader();
-//        String params = br.readLine();//json
-//        System.out.println(params);
-
-        //Chanage Cart Obj
 
         //2. call service add
         supcartService.delete(id);
-        //cartService.delete(id);
-
         //3. Response success ID
         response.getWriter().write("success");
     }

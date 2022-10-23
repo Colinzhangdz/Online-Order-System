@@ -1,8 +1,5 @@
 package com.itheima.service;
-
-import com.itheima.pojo.Cart;
 import com.itheima.pojo.SupCart;
-
 import java.util.List;
 
 public interface SupCartService {

@@ -41,9 +41,6 @@
               <input type="checkbox" name="good-id" :value="1" v-model="cart.select" :evalue="cart.id">
             </td>
             <td class="goods">
-              <!--										<div class="goods-image">-->
-              <!--											<img v-bind:src="cart.pro_img">-->
-              <!--										</div>-->
               <div class="goods-information">
                 <h3>{{cart.pro_name}}</h3>
                 <ul>
@@ -104,15 +101,7 @@
     el:"#cart",
     data:{
       productList:[
-        {
-          'id':'1',
-          'pro_name': 'rice',//产品名称
-          'pro_purity': 'china',// 地区
-          'pro_service': "chinarice",//描述
-          'pro_num':1,//数量
-          'pro_price':1,//单价
-          'select': true //选中状态
-        }
+
       ]
     },
     mounted(){
