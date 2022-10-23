@@ -40,7 +40,7 @@
                         <label for="password">Password</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="password" name="password" value="<%=password%>" placeholder="Passowrd">
+                        <input type="password" id="password" name="password" value="<%=password%>" placeholder="Passowrd">
                     </div>
                 </div>
                 <div class="row">
