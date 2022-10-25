@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Take away</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/axios@0.25.0/dist/axios.min.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+<style>
+    #marker1 {
+        background-image: url('img/car.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    #marker2 {
+        background-image: url('img/restaurant.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    #marker3 {
+        background-image: url('img/customer.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    .mapboxgl-popup {
+        max-width: 200px;
+    }
+</style>
+<div style="left: 10px;
+            position: absolute;
+            top: 10px;
+            transform: translate3d(0, 0, 0);
+            width: 164px;
+            z-index: 1">
+    <button><a href="customer.html">Customer Management</a></button>
+    <button><a href="staff.html">Staff Management</a></button>
+    <button><a href="profile.jsp">Profile</a></button>
+    <button><a href="Menu.html">menu</a></button>
+    <button><a href="evaluationManagement.html">EvaluationManagement</a></button>
+    <button><a href="Menu.html">menu</a></button>
+    <button><a href="login.jsp">Login Out</a></button>
+</div>
+<div id="map"></div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic3RvcnlwYW5kYSIsImEiOiJjbDk1NmJyaHcwbDR5M3Zvem95MTdwZWI1In0.LWjeS8icTjAnW28tOS1e5A';
+    var map;
+    let deliveryData = {};
+    axios.get('/asd_war_exploded/delivery')
+        .then((response) => {
+            deliveryData = response.data[Math.ceil(Math.random()*9)]
+            setMap(deliveryData)
+            setDriver(deliveryData)
+            setRestaurant(deliveryData)
+            setCustomer(deliveryData)
+        })
+    function setMap(data){
+        const driver = [data.driver_lng, data.driver_lat];
+        map = new mapboxgl.Map({
+            container: 'map',
+            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: driver,
+            zoom: 15
+        });
+    }
+
+    function setDriver(data){
+        const driver = [data.driver_lng, data.driver_lat];
+
+        const tCATA = turf.point([data.driver_lat, data.driver_lng]);
+        const tPK = turf.point([data.restaurant_lat, data.restaurant_lng]);
+        var length = turf.distance(tCATA, tPK, { units: "kilometers" });
+        length = length.toFixed(2);
+        var myHTML = '<strong><span style="color: red">'+data.driver_name+'</span> is picking up your order.</strong><br>'+length+'km from the restaurant'
+        const popup1 = new mapboxgl.Popup({ closeOnClick: false, closeButton: false, offset: 25 }).setHTML(myHTML);
+        const marker1 = document.createElement('div');
+        marker1.id = 'marker1';
+        new mapboxgl.Marker(marker1)
+            .setLngLat(driver)
+            .setPopup(popup1)
+            .addTo(map)
+            .togglePopup();
+    }
+
+    function setRestaurant(data){
+        const restaurant = [data.restaurant_lng, data.restaurant_lat];
+        const popup2 = new mapboxgl.Popup({ closeOnClick: false, closeButton: false, offset: 25 }).setHTML(
+            '<strong>The restaurant is preparing your order.</strong>'
+        );
+        const marker2 = document.createElement('div');
+        marker2.id = 'marker2';
+        new mapboxgl.Marker(marker2)
+            .setLngLat(restaurant)
+            .setPopup(popup2)
+            .addTo(map)
+            .togglePopup();
+    }
+
+    function setCustomer(data){
+        const customer = [data.customer_lng, data.customer_lat];
+        const popup3 = new mapboxgl.Popup({ closeOnClick: false, closeButton: false, offset: 25 }).setHTML(
+            '<strong>Your order is on its way.</strong>'
+        );
+        const marker3 = document.createElement('div');
+        marker3.id = 'marker3';
+        new mapboxgl.Marker(marker3)
+            .setLngLat(customer)
+            .setPopup(popup3)
+            .addTo(map)
+            .togglePopup();
+    }
+</script>
+
+</body>
+</html>

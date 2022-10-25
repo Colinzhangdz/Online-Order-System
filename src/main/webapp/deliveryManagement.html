@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery Management</title>
+    <link rel="stylesheet" href="css/pub.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/axios@0.25.0/dist/axios.min.js" type="text/javascript"></script>
+    <script src="https://cdn.bootcss.com/qs/6.10.3/qs.min.js"></script>
+</head>
+<body>
+<div style="left: 10px;
+            position: absolute;
+            top: 10px;
+            transform: translate3d(0, 0, 0);
+            width: 164px;
+            z-index: 1">
+    <button><a href="customer.html">Customer Management</a></button>
+    <button><a href="staff.html">Staff Management</a></button>
+    <button><a href="profile.jsp">Profile</a></button>
+    <button><a href="Menu.html">menu</a></button>
+    <button><a href="evaluationManagement.html">EvaluationManagement</a></button>
+    <button><a href="Menu.html">menu</a></button>
+    <button><a href="login.jsp">Login Out</a></button>
+</div>
+<div id="app">
+    <h1 style="text-align: center">Delivery Management</h1>
+    <div style="width: 1200px;margin: 0 auto">
+        <el-table :data="deliveryList">
+            <el-table-column prop="delivery_id" label="Delivery ID" width="180"></el-table-column>
+            <el-table-column prop="user_id" label="User ID" width="180"></el-table-column>
+            <el-table-column prop="order_id" label="Order ID" width="180"></el-table-column>
+            <el-table-column label="Driver Name" width="280">
+                <template slot-scope="scope">
+                    <el-select v-model="scope.row.driver_name" placeholder="Select Driver">
+                        <el-option label="Liam" value="Liam"></el-option>
+                        <el-option label="Noah" value="Noah"></el-option>
+                        <el-option label="William" value="William"></el-option>
+                        <el-option label="James" value="James"></el-option>
+                        <el-option label="Logan" value="Logan"></el-option>
+                        <el-option label="Benjamin" value="Benjamin"></el-option>
+                        <el-option label="Mason" value="Mason"></el-option>
+                        <el-option label="Elijah" value="Elijah"></el-option>
+                        <el-option label="Oliver" value="Oliver"></el-option>
+                        <el-option label="Jacob" value="Jacob"></el-option>
+                    </el-select>
+                </template>
+            </el-table-column>
+            <el-table-column label="Operate" width="100">
+                <template slot-scope="scope">
+                    <el-button size="mini" type="danger" @click="handleUpdate(scope.$index)">Update</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+
+</div>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            deliveryList: [],
+        },
+        mounted: function () {
+            this.getDeliveryList();
+        },
+        methods: {
+            getDeliveryList(){
+                axios.get('/asd_war_exploded/delivery')
+                    .then((response) => {
+                        this.deliveryList = response.data
+                    })
+            },
+            handleUpdate(i) {
+                var qs = Qs
+                axios({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    transformRequest: [function(data) {
+                        data = qs.stringify(data)
+                        return data
+                    }],
+                    url: '/asd_war_exploded/updateDelivery',
+                    method: 'post',
+                    data: this.deliveryList[i],
+                })
+                this.$message({
+                    message: 'Update successful!',
+                    type: 'success'
+                });
+            },
+        }
+    })
+</script>
+</body>
+</html>
