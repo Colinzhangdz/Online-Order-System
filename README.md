@@ -1,5 +1,5 @@
 # Online-Order-System
-
+*1.Project introduction*
 This project is a restaurant online ordering system, including the front-end (interface) and back-end (server controller and database), including user login, account management function, menu function, order management function, shopping cart function, payment function, takeaway function, order function and evaluation function. The project was completed by team leader Zhaoyu Pan and team members Huiming He, Yingxi Zeng, Dingzhao Zhang and siyu Chen.
 
 *2.**Function details*
@@ -870,3 +870,5 @@ This project is a restaurant online ordering system, including the front-end (in
   </td>
  </tr>
 </tbody></table>
+*3.Implementation technology*
+
