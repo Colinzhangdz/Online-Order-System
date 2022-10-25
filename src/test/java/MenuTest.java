@@ -24,8 +24,8 @@ public class MenuTest {
 
 
     }
-    //@Test
-    /*public void testUpdateProduct() {
+    @Test
+    public void testUpdateProduct() {
         ArrayList<Product> products = Database.instance().getProducts();
         Product product = new Product();
 
@@ -41,7 +41,7 @@ public class MenuTest {
         Assertions.assertEquals(1009, product1.getOrdered());
 
 
-    }*/
+    }
 
     @Test
     public void DeleteProduct() {

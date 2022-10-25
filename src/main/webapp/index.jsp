@@ -2,15 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="css/mystyle.css">
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<h1><%= "Welcome to the online ordering system" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
 
-<a href="login.jsp">Testing login</a>
+<a href="login.jsp"> Login</a>
 
 
 </body>
