@@ -63,7 +63,7 @@
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3RvcnlwYW5kYSIsImEiOiJjbDk1NmJyaHcwbDR5M3Zvem95MTdwZWI1In0.LWjeS8icTjAnW28tOS1e5A';
     var map;
     let deliveryData = {};
-    axios.get('/asd_war_exploded/delivery')
+    axios.get('delivery')
         .then((response) => {
             deliveryData = response.data[Math.ceil(Math.random()*9)]
             setMap(deliveryData)
