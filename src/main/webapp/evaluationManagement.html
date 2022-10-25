@@ -121,7 +121,7 @@
         },
         methods: {
             getEvaluations() {
-                axios.get('/asd_war_exploded/evaluation')
+                axios.get('evaluation')
                     .then((response) => {
                         this.tableData = response.data
                         console.log(response)
