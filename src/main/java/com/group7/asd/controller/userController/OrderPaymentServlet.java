@@ -59,11 +59,17 @@ public class OrderPaymentServlet extends HttpServlet{
 	}
 
 	private void saveOrder(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException, SQLException {
+						   HttpServletResponse response) throws ServletException, IOException, SQLException {
 		conn = db.openConnection();
 		UserDBManager manager = new UserDBManager(conn);  //Create DB managers
 		String orderDetail = request.getParameter("orderDetail");
 		String totalMoney = request.getParameter("totalMoney");
+		String address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		String idcard = request.getParameter("idcard");
+		String password = request.getParameter("password");
+		String paytype = request.getParameter("radio");
+		String remark = request.getParameter("remark");
 		JSONArray jsonArray= JSONArray.parseArray(orderDetail);
 		String orderNo = UUID.randomUUID().toString();
 		for(int i=0;i<jsonArray.size();i++){
@@ -77,7 +83,7 @@ public class OrderPaymentServlet extends HttpServlet{
 			userId = user.getUserId() + "";
 		}
 		Double money = Double.parseDouble(totalMoney);
-		manager.saveOrder(orderNo,money,userId);
+		manager.saveOrder(orderNo,money,userId,address,phone,idcard,password,paytype,remark);
 		boolean delFlag = true;
 		try {
 			ResponseUtil.write(delFlag, response);

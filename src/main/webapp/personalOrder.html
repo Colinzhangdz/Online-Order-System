@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/mystyle.css">
+  <meta charset="utf-8">
+  <title>PersonalOrder</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
+   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+   <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" type="text/javascript" charset="utf-8"></script>
+  <!-- 引入ElementUI样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入ElementUI组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<button>
+  <a href="profile.jsp">Profile</a></button>
+<button>
+  <a href="menuName.html">menu</a></button>
+<button>
+  <a href="cart.html">
+    cart
+  </a>
+</button>
+<!--<button>
+    <a href="ShoppingOrder.html">Order</a></button>
+<button>-->
+<a href="evaluation.html">Evaluation</a></button>
+<button>
+  <a href="login.jsp">LogOut</a></button>
+
+
+<div id="main">
+  <div class="container">
+    <div id="cart">
+      <h1>PersonalOrder</h1>
+      <div style="margin-top: 10px;margin-bottom: 10px;display: flex">
+        <el-input v-model="orderNo" placeholder="输入订单编号"></el-input>
+        <el-button style="margin-left: 30px;" type="primary" @click="getOrderList">查询</el-button>
+      </div>
+
+      <el-collapse v-model="activeName" accordion>
+        <el-collapse-item v-for="(item,index) in orderList" :key="index" :title="'订单编号：' + item.orderNo + ',总价格：' + item.totalMoney" :name="index">
+          <div v-for="(orderDetail,i) in item.orderDetailList">
+            {{i + 1}}、商品名称：{{orderDetail.productName}} , 单价： {{orderDetail.price}} , 数量： {{orderDetail.number}}
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+    </div>
+  </div>
+</div>
+</body>
+<!--<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>-->
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>
+<script src="jQuery.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el:"#cart",
+    data:{
+      activeName: '1',
+      orderNo: "",
+      orderList: []
+    },
+    mounted(){
+      this.getOrderList()
+    },
+    methods:{
+      getOrderList() {
+        let action = 'selectPersonalOrder'
+        axios.get("personalOrder", {
+                  params: {
+                    action:action,
+                    orderNo: this.orderNo
+                  }
+                }
+        ).then(res => {
+          this.orderList = res.data.tableData
+        })
+      }
+    }
+
+  })
+</script>
+</html>

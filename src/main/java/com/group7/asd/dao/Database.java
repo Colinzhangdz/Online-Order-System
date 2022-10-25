@@ -242,7 +242,71 @@ public class Database {
         }
         return products;
     }
+    public ArrayList<OrderDetail> getOrderDetailList() {
+        ArrayList<OrderDetail> orderDetailArrayList = new ArrayList<OrderDetail>();
+        try (Connection conn = getConnection()) {
+            String sql = "select id,order_no,product_name,price,number from order_detail";
+            PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderDetail orderDetail = new OrderDetail();
+                int i = 1;
+                if(rs.getString("id") != null && !rs.getString("id").equals("")) {
+                    orderDetail.setId(Integer.valueOf(rs.getString("id")));
+                }
+                orderDetail.setOrder_no(rs.getString("order_no"));
+                orderDetail.setProductName(rs.getString("product_name"));
+                if(rs.getString("price") != null && !rs.getString("price").equals("")) {
+                    orderDetail.setPrice(Double.parseDouble(rs.getString("price")));
+                }
+                if(rs.getString("number") != null && !rs.getString("number").equals("")) {
+                    orderDetail.setNumber(Integer.valueOf(rs.getString("number")));
+                }
+                orderDetailArrayList.add(orderDetail);
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orderDetailArrayList;
+    }
 
+    public ArrayList<OrderInformation> getOrderList(String user_id) {
+        ArrayList<OrderInformation> orderInformations = new ArrayList<OrderInformation>();
+        try (Connection conn = getConnection()) {
+            String sql = "select order_no,totalMoney,user_id,address,phone,idcard,password,paytype from order_information where user_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, user_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderInformation orderInformation = new OrderInformation();
+                int i = 1;
+
+                orderInformation.setOrderNo(rs.getString("order_no"));
+                if(rs.getString("totalMoney") != null && !rs.getString("totalMoney").equals("")) {
+                    orderInformation.setTotalMoney(Double.parseDouble(rs.getString("totalMoney")));
+                }
+
+                orderInformation.setUser_id(rs.getString("user_id"));
+
+                orderInformation.setAddress(rs.getString("address"));
+                orderInformation.setPhone(rs.getString("phone"));
+                orderInformation.setIdcard(rs.getString("idcard"));
+
+                orderInformation.setPassword(rs.getString("password"));
+                if(rs.getString("paytype") != null && !rs.getString("paytype").equals("")) {
+                    orderInformation.setPaytype(Integer.valueOf(rs.getString("paytype")));
+                }
+                orderInformations.add(orderInformation);
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orderInformations;
+    }
     public void addProduct(Product product) {
         try (Connection conn = getConnection()) {
             String sql = "insert into tb_brand (brand_name, company_name,ordered, description, status) values (?,?,?,?,?)";

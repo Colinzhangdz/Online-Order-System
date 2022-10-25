@@ -83,12 +83,13 @@ public class UserDBManager {
         return user;
     }
 
-    public void saveOrder(String orderNo,Double totalMoney,String userId) throws SQLException {
-        st.executeUpdate("INSERT INTO order_information(order_no, totalMoney, user_id) VALUES('" + orderNo + "','" + totalMoney + "','" + userId  + "')");
+    public void saveOrder(String orderNo,Double totalMoney,String userId,String address,String phone,String idcard,String password,String paytype,String remark) throws SQLException {
+        //VALUES('" + orderNo + "','" + totalMoney + "','" + userId  + "')");
+        st.executeUpdate("INSERT INTO order_information(order_no, totalMoney, user_id,address,phone,idcard,password,paytype,remark) VALUES('" + orderNo + "','" + totalMoney + "','" + userId  + "','" + address + "','" + phone + "','" + idcard + "','" + password + "','" + paytype + "','" + remark + "')");
     }
 
     public void saveOrderDetail(JSONObject jsonObject, String orderNo) throws SQLException {
-        st.executeUpdate("INSERT INTO order_detail(order_no, product_name, price) VALUES('" + orderNo + "','" + jsonObject.getString("pro_name") + "','" + jsonObject.getString("pro_price") + "')");
+        st.executeUpdate("INSERT INTO order_detail(order_no, product_name, price,number) VALUES('" + orderNo + "','" + jsonObject.getString("pro_name") + "','" + jsonObject.getString("pro_price") + "','" + jsonObject.getString("pro_num") + "')");
     }
 
     public User findUser1(int id) throws SQLException {

@@ -3,14 +3,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.group7.asd.dao.DBConnector;
 import com.group7.asd.dao.Database;
 import com.group7.asd.dao.UserDBManager;
+import com.group7.asd.model.OrderDetail;
+import com.group7.asd.model.OrderInformation;
 import com.group7.asd.model.Product;
+import com.group7.asd.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 // Test add staff
 public class OrderTest {
@@ -46,12 +50,36 @@ public class OrderTest {
         }
         String userId = "6789";
         Double money = Double.parseDouble("210");
-        try {
-            manager.saveOrder(orderNo,money,userId);
+       /* try {
+            //manager.saveOrder(orderNo,money,userId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
+    }
+
+    @Test
+    public void selectPersonalOrder() throws SQLException, ClassNotFoundException {
+        DBConnector db = new DBConnector();
+        Connection conn = db.openConnection();
+        UserDBManager manager = new UserDBManager(conn);
+        String orderNo = "";
+        Map<String, Object> result = new HashMap<String, Object>();
+        String userId = "17";
+        List<OrderInformation> orderInformationList =  Database.instance().getOrderList(userId);
+        List<OrderDetail> orderDetailList = Database.instance().getOrderDetailList();
+        List<OrderInformation> newOrderInformationList = new ArrayList<>();
+        for(int i = 0;i<orderInformationList.size();i++) {
+            int j = i;
+            List<OrderDetail> itemOrderDetailList = orderDetailList.stream().filter(item -> orderInformationList.get(j).getOrderNo().equals(item.getOrder_no())).collect(Collectors.toList());
+            orderInformationList.get(j).setOrderDetailList(itemOrderDetailList);
+            if(("").equals(orderNo) || (!("").equals(orderNo) && orderInformationList.get(j).getOrderNo().indexOf(orderNo) > -1)) {
+                newOrderInformationList.add(orderInformationList.get(j));
+            }
+        }
+        for(int i = 0;i<newOrderInformationList.size();i++) {
+            System.out.println(newOrderInformationList.get(i));
+        }
     }
 
 }

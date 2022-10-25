@@ -30,7 +30,7 @@
                 </div>
 
                 <div style="margin-left: 15px;">
-                   <p>{{item.pro_name}}</p>
+                    <p>{{item.pro_name}}</p>
                     <p>{{item.pro_price}} * {{item.pro_num}}</p>
                 </div>
             </div>
@@ -49,8 +49,29 @@
                 <p slot="title" class="dialog-full-header">
                     <i class="el-icon-warning"></i><span class="dialog-full-title">PaymentTips</span>
                 </p>
-                <el-radio v-model="radio" label="1">WeChat</el-radio>
-                <el-radio v-model="radio" label="2">Alipay</el-radio>
+                <el-form ref="form" :model="form" label-width="100px">
+                    <el-form-item label="address">
+                        <el-input  v-model="form.address"></el-input>(Sydney only)
+                    </el-form-item>
+                    <el-form-item label="phone">
+                        <el-input v-model="form.phone"></el-input>
+                    </el-form-item>
+                    <el-form-item label="bankCardNo">
+                        <el-input v-model="form.idcard"></el-input>
+                    </el-form-item>
+                    <el-form-item label="password">
+                        <el-input v-model="form.password"></el-input>
+                    </el-form-item>
+                    <el-form-item label="remark">
+                        <el-input v-model="form.remark"></el-input>
+                    </el-form-item>
+                    <el-form-item label="payType">
+                        <el-radio-group v-model="form.radio">
+                            <el-radio label="1">WeChat</el-radio>
+                            <el-radio label="2">Alipay</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-form>
                 <span slot="footer" class="dialog-footer">
                         <el-button type="primary" @click="paymentMoney()">ConfirmPayment</el-button>
                         <el-button @click="paymentVisable=false">Cancel</el-button>
@@ -68,6 +89,14 @@
     new Vue({
         el:"#orderPayment",
         data:{
+            form: {
+                address: '4/67 Thomas Street Ultimo NSW 2007 Australia',
+                radio: "1",
+                phone: '',
+                idcard: '',
+                password: '',
+                remark: ''
+            },
             radio: "1",
             paymentVisable: false,
             newProductList: [],
@@ -137,11 +166,12 @@
                 })
             },
             sureClick: function(){
-               this.paymentVisable = true
+                this.paymentVisable = true
             },
             paymentMoney: function(){
                 this.paymentVisable = false
-                $.post("saveOrder?action=save",{orderDetail:JSON.stringify(this.newProductList),totalMoney: this.getTotal},
+                $.post("saveOrder?action=save",{orderDetail:JSON.stringify(this.newProductList),totalMoney: this.getTotal,address:this.form.address
+                        ,phone: this.form.phone,idcard: this.form.idcard,password: this.form.password,radio: this.form.radio,remark: this.form.remark},
                     function(delFlag){
                         var flag = eval('('+delFlag+')');
                         if(flag){
