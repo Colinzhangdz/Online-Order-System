@@ -62,6 +62,7 @@
 
 
                 <br>
+                <!-- check user's condition, if user is staff then bring staff page, if customer, bring user page -->
                 <div class="row">
 
 
