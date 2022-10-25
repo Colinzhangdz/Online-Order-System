@@ -33,7 +33,7 @@ public class AddCartServlet extends HttpServlet {
         if (user == null){
             response.getWriter().write("fail");
         }
-        //转为Cart对象
+        //change Cart obj
         Cart brand = JSON.parseObject(params, Cart.class);
         brand.setUid(user.getUserId());
         //2. Call service add

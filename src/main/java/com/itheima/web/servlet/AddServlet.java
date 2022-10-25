@@ -23,7 +23,7 @@ public class AddServlet extends HttpServlet {
 
         //1. Receive brand data
         BufferedReader br = request.getReader();
-        String params = br.readLine();//json字符串
+        String params = br.readLine();//json
         System.out.println(params);
 
         //Convert to Brand object
