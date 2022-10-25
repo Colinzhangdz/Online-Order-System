@@ -37,14 +37,14 @@
     <div id="cart">
       <h1>PersonalOrder</h1>
       <div style="margin-top: 10px;margin-bottom: 10px;display: flex">
-        <el-input v-model="orderNo" placeholder="输入订单编号"></el-input>
-        <el-button style="margin-left: 30px;" type="primary" @click="getOrderList">查询</el-button>
+        <el-input v-model="orderNo" placeholder="Enter Order Number"></el-input>
+        <el-button style="margin-left: 30px;" type="primary" @click="getOrderList">Search</el-button>
       </div>
 
       <el-collapse v-model="activeName" accordion>
-        <el-collapse-item v-for="(item,index) in orderList" :key="index" :title="'订单编号：' + item.orderNo + ',总价格：' + item.totalMoney" :name="index">
+        <el-collapse-item v-for="(item,index) in orderList" :key="index" :title="'OrderNumber：' + item.orderNo + ',TotalPrice：' + item.totalMoney" :name="index">
           <div v-for="(orderDetail,i) in item.orderDetailList">
-            {{i + 1}}、商品名称：{{orderDetail.productName}} , 单价： {{orderDetail.price}} , 数量： {{orderDetail.number}}
+            {{i + 1}}、ProductName：{{orderDetail.productName}} , Price： {{orderDetail.price}} , Quantity： {{orderDetail.number}}
           </div>
         </el-collapse-item>
       </el-collapse>
