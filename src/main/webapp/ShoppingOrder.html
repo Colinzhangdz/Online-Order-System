@@ -62,8 +62,8 @@
                     <el-form-item label="password">
                         <el-input v-model="form.password"></el-input>
                     </el-form-item>
-                    <el-form-item label="remark">
-                        <el-input v-model="form.remark"></el-input>
+                    <el-form-item label="ReEnter">
+                        <el-input v-model="form.ReEnter"></el-input>
                     </el-form-item>
                     <el-form-item label="payType">
                         <el-radio-group v-model="form.radio">
@@ -95,7 +95,7 @@
                 phone: '',
                 idcard: '',
                 password: '',
-                remark: ''
+                reenter: ''
             },
             radio: "1",
             paymentVisable: false,
@@ -126,22 +126,20 @@
                 var _this = this;
                 axios({
                     method:"get",
-                    // url:"http://localhost:8080/asd/selectAllServlet"
-                    // 这里的 uid 添加成你们用户的，那个用户登录，就把那个用户的id放进去就好了，
                     url:"./cartServlet?uid=" + userId
                 }).then(function (resp) {
                     console.log(resp.data)
                     console.log(_this.productList)
                     for (let i = 0; i < resp.data.length; i++) {
                         var tep={
-                            'id': resp.data[i].id,//产品id
-                            'pro_name': resp.data[i].brandName,//产品名称
-                            'pro_num': resp.data[1].status,//数量
+                            'id': resp.data[i].id,
+                            'pro_name': resp.data[i].brandName,
+                            'pro_num': resp.data[1].status,
                             'pro_purity':resp.data[1].companyName,
                             'pro_service':resp.data[1].description,
-                            // 'pro_img': 'img/1.jpg',//图片链接
-                            'pro_price': resp.data[i].ordered,//单价,
-                            'select': true ,//选中状态
+                            // 'pro_img': 'img/1.jpg',
+                            'pro_price': resp.data[i].ordered,
+                            'select': true ,
                         }
                         _this.productList.push(tep)
 
@@ -171,7 +169,7 @@
             paymentMoney: function(){
                 this.paymentVisable = false
                 $.post("saveOrder?action=save",{orderDetail:JSON.stringify(this.newProductList),totalMoney: this.getTotal,address:this.form.address
-                        ,phone: this.form.phone,idcard: this.form.idcard,password: this.form.password,radio: this.form.radio,remark: this.form.remark},
+                        ,phone: this.form.phone,idcard: this.form.idcard,password: this.form.password,radio: this.form.radio,reenter: this.form.reenter},
                     function(delFlag){
                         var flag = eval('('+delFlag+')');
                         if(flag){
