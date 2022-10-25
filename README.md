@@ -871,4 +871,29 @@ This project is a restaurant online ordering system, including the front-end (in
  </tr>
 </tbody></table>
 *3.Implementation technology*
+1). View (Interface)
+In the front-end section we use JSP and HTML technologies to complete the front-end.
+
+2).Controllers
+
+servlet: used to extend the capabilities of servers that host applications accessed by means of a request-response programming model.
+
+SpringSession: addresses Session sharing in a clustered environment.
+
+3). database
+MySQL: relational database. The core business data of this project will be stored by MySQL.
+
+MybatisPlus: This project persistence layer will use MybatisPlus to simplify the development, the basic single table add, delete, change and check directly call the method provided by the frame.
+
+Redis: an in-memory database stored in key-value format with high access speed. It is often used as a cache (to reduce database access pressure and provide access efficiency) and will be used in future performance optimization.
+
+4.Tools
+Git: A version control tool that is used to manage code in a project during team work.
+
+Maven: Project building tool.
+
+Junit: unit test tool. After functions are implemented, developers need to use junit to unit test functions.
+
+
+
 
