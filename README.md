@@ -880,6 +880,8 @@ servlet: used to extend the capabilities of servers that host applications acces
 
 SpringSession: addresses Session sharing in a clustered environment.
 
+java session：Used for state consisting of multiple requests and responses between client and server. Both HTTP and web servers are stateless. Therefore, the way to maintain user state is to utilize techniques that implement session tracking.
+
 3). database
 MySQL: relational database. The core business data of this project will be stored by MySQL.
 
