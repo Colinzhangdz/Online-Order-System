@@ -6,7 +6,7 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Welcome to the online ordering system" %>
+<h1><%= "Test" %>
 </h1>
 <br/>
 
