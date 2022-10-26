@@ -49,21 +49,21 @@
                 <p slot="title" class="dialog-full-header">
                     <i class="el-icon-warning"></i><span class="dialog-full-title">PaymentTips</span>
                 </p>
-                <el-form ref="form" :model="form" label-width="100px">
-                    <el-form-item label="address">
+                <el-form ref="form" :model="form" label-width="100px" :rules="rules">
+                    <el-form-item label="address" prop="address">
                         <el-input  v-model="form.address"></el-input>(Sydney only)
                     </el-form-item>
-                    <el-form-item label="phone">
-                        <el-input v-model="form.phone"></el-input>
+                    <el-form-item label="phone" prop="phone">
+                        <el-input v-model="form.phone"></el-input>(Enter 9 digits)
                     </el-form-item>
-                    <el-form-item label="bankCardNo">
-                        <el-input v-model="form.idcard"></el-input>
+                    <el-form-item label="idcard" prop="idcard" >
+                        <el-input v-model="form.idcard"></el-input>(Enter 9 digits)
                     </el-form-item>
-                    <el-form-item label="password">
-                        <el-input v-model="form.password"></el-input>
+                    <el-form-item label="password" prop="password">
+                        <el-input v-model="form.password"></el-input>(Enter 6 digits)
                     </el-form-item>
-                    <el-form-item label="ReEnter">
-                        <el-input v-model="form.ReEnter"></el-input>
+                    <el-form-item label="remark">
+                        <el-input v-model="form.remark"></el-input>
                     </el-form-item>
                     <el-form-item label="payType">
                         <el-radio-group v-model="form.radio">
@@ -88,19 +88,24 @@
 <script type="text/javascript">
     new Vue({
         el:"#orderPayment",
-        data:{
-            form: {
-                address: '4/67 Thomas Street Ultimo NSW 2007 Australia',
+        data(){
+            return {
+                rules: {
+                },
+                form: {
+                    address: '4/67 Thomas Street Ultimo NSW 2007 Australia',
+                    radio: "1",
+                    phone: '',
+                    idcard: '',
+                    password: '',
+                    remark: ''
+                },
                 radio: "1",
-                phone: '',
-                idcard: '',
-                password: '',
-                reenter: ''
-            },
-            radio: "1",
-            paymentVisable: false,
-            newProductList: [],
-            productList:[]
+                paymentVisable: false,
+                newProductList: [],
+                productList:[]
+            }
+
         },
         computed:{
             getTotal:function(){
@@ -122,10 +127,13 @@
             })
         },
         methods:{
+            // phone number
             getProductList: function(userId){
                 var _this = this;
                 axios({
                     method:"get",
+                    // url:"http://localhost:8080/asd/selectAllServlet"
+                    // uid
                     url:"./cartServlet?uid=" + userId
                 }).then(function (resp) {
                     console.log(resp.data)
@@ -163,22 +171,87 @@
                     console.log(_this.productList)
                 })
             },
+            isEmptyString: function(parA) {
+                //Back true;  || parA == "null"
+                if (parA == null || typeof (parA) == "undefined" || parA === "") {
+                    return true
+                } else {
+                    if (typeof(parA) === 'string' ? true : false) {
+                        if (parA.trim() == "") {
+                            return true
+                        }
+                    }
+                    return false
+                }
+            },
             sureClick: function(){
                 this.paymentVisable = true
             },
             paymentMoney: function(){
+                if(this.isEmptyString(this.form.address)) {
+                    this.$message({
+                        type: 'error',
+                        message: 'Address cannot be empty'
+                    })
+                    return;
+                }
+                if(this.isEmptyString(this.form.password)) {
+                    this.$message({
+                        type: 'error',
+                        message: 'Password cannot be empty'
+                    })
+                    return;
+                }
+                if(this.form.password.trim().length != 6) {
+                    this.$message({
+                        type: 'error',
+                        message: 'Please enter 6-digit password'
+                    })
+                    return;
+                }
+                if(this.isEmptyString(this.form.idcard)) {
+                    this.$message({
+                        type: 'error',
+                        message: 'ID cannot be empty'
+                    })
+                    return;
+                }
+                if(this.form.idcard.trim().length != 9) {
+                    this.$message({
+                        type: 'error',
+                        message: 'Please enter nine-digit ID'
+                    })
+                    return;
+                }
+                if(this.isEmptyString(this.form.phone)) {
+                    this.$message({
+                        type: 'error',
+                        message: 'Phone number cannot be empty'
+                    })
+                    return;
+                }
+                if(this.form.phone.trim().length != 9) {
+                    this.$message({
+                        type: 'error',
+                        message: 'Please enter nine-digit phone number'
+                    })
+                    return;
+                }
+
                 this.paymentVisable = false
+                var totalMoney = this.getTotal
                 $.post("saveOrder?action=save",{orderDetail:JSON.stringify(this.newProductList),totalMoney: this.getTotal,address:this.form.address
-                        ,phone: this.form.phone,idcard: this.form.idcard,password: this.form.password,radio: this.form.radio,reenter: this.form.reenter},
+                        ,phone: this.form.phone,idcard: this.form.idcard,password: this.form.password,radio: this.form.radio,remark: this.form.remark},
                     function(delFlag){
                         var flag = eval('('+delFlag+')');
                         if(flag){
-                            alert("PaymentSuccess!");
+                            alert("PaymentSuccess," + "totalMoney is " + totalMoney + "。");
                         }else{
                             alert("PaymentFailure!");
                         }
                     }
                 );
+
             },
         }
 
